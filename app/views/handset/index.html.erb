@@ -1,0 +1,38 @@
+<h1><center>Handset Detection Rails API Kit Demo</center></h1>
+
+<h3>There are following Methods</h3>
+
+<ul>
+  <li>Install gem in Gemfile i.e gem 'handsetdetection'</li>
+  <li>Add "handset_detection" at the top of your Application Controller i.e. <br>
+    &nbsp;&nbsp;class ApplicationController < ActionController::Base<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;require 'handset_detection'<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;.<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;.<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;.<br>
+    &nbsp;&nbsp;end
+  </li>
+  <li>Thats it, use Handset detection Methods anywhere in rail application</li>
+</ul>
+
+<h3> Examples of each method </h3>
+
+<ul>
+  <li> <a href="/handset/device_vendors">deviceVendors</a> </li>
+  <li> <a href="/handset/device_models">deviceModels("Sagem")</a> </li>
+  <li> <a href="/handset/device_view">deviceView("Nokia","N95")</a> </li>
+  <li> <a href="/handset/device_whathas">deviceWhatHas('network','CDMA')</a> </li>
+  <li> <a href="/handset/site_detect">siteDetect({
+    "Host"=>"localhost",
+    "Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language"=>"en-us,en;q=0.5",
+    "Accept-Encoding"=>"gzip, deflate",
+    "Connection"=>"keep-alive",
+    "Cache-Control"=>"max-age=0",
+    "ipaddress"=>"127.0.0.1",
+    "User-Agent"=>"NokiaN95",
+    "x-wap-profile"=>"http://nds1.nds.nokia.com/uaprof/NN95-1r100.xml"
+  })</a> </li>
+  <li> <a href="/handset/fetch_trees">fetchTrees</a> </li>
+  <li> <a href="/handset/fetch_specs">fetchSpecs</a> </li>
+</ul>
