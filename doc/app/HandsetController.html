@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class HandsetController - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/controllers/handset_controller.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-delete_cache_manually">#delete_cache_manually</a>
+    
+    <li><a href="#method-i-device_models">#device_models</a>
+    
+    <li><a href="#method-i-device_vendors">#device_vendors</a>
+    
+    <li><a href="#method-i-device_view">#device_view</a>
+    
+    <li><a href="#method-i-device_whathas">#device_whathas</a>
+    
+    <li><a href="#method-i-fetch_specs">#fetch_specs</a>
+    
+    <li><a href="#method-i-fetch_trees">#fetch_trees</a>
+    
+    <li><a href="#method-i-index">#index</a>
+    
+    <li><a href="#method-i-local_detect">#local_detect</a>
+    
+    <li><a href="#method-i-local_test">#local_test</a>
+    
+    <li><a href="#method-i-set_cache_manually">#set_cache_manually</a>
+    
+    <li><a href="#method-i-site_detect">#site_detect</a>
+    
+    <li><a href="#method-i-site_test">#site_test</a>
+    
+    <li><a href="#method-i-socket_test">#socket_test</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ActionController.html">ActionController</a>
+  
+    <li><a href="./ActionController/HandsetDetection.html">ActionController::HandsetDetection</a>
+  
+    <li><a href="./ActionController/HandsetDetection/ClassMethods.html">ActionController::HandsetDetection::ClassMethods</a>
+  
+    <li><a href="./ActionController/HandsetDetection/Configuration.html">ActionController::HandsetDetection::Configuration</a>
+  
+    <li><a href="./ActionController/HandsetDetection/HandsetDetectionConfigFileNotFoundException.html">ActionController::HandsetDetection::HandsetDetectionConfigFileNotFoundException</a>
+  
+    <li><a href="./ActionController/HandsetDetection/InstanceMethods.html">ActionController::HandsetDetection::InstanceMethods</a>
+  
+    <li><a href="./ActionController/HandsetDetection/SingletonMethods.html">ActionController::HandsetDetection::SingletonMethods</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./HandsetController.html">HandsetController</a>
+  
+    <li><a href="./HandsetHelper.html">HandsetHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class HandsetController</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-delete_cache_manually" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_cache_manually</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="delete_cache_manually-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_cache_manually</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Just call delete_cache Method to delete both cache spec and cache tree&lt;br/&gt;This will return True if both are deleted&lt;br/&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">delete_cache</span>.<span class="ruby-identifier">to_s</span>
+  <span class="ruby-comment">#cache = ActiveSupport::Cache.lookup_store(:memory_store)</span>
+  <span class="ruby-comment">#cache = ActiveSupport::Cache::FileStore.new(Rails.root.to_s + &quot;/lib/handset_cache_store&quot;)</span>
+  <span class="ruby-comment">#cache.write('mst','MUHAMMAD Shahzad Tariq')</span>
+  <span class="ruby-comment">#render :text =&gt; cache.read('mst')</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_cache_manually-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_cache_manually-method -->
+
+    
+      <div id="method-i-device_models" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">device_models</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="device_models-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">device_models</span>
+  <span class="ruby-ivar">@vendors</span> = <span class="ruby-identifier">deviceModels</span>(<span class="ruby-string">&quot;Sagem&quot;</span>)
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;&lt;br/&gt; @models = deviceModels('Sagem')&lt;br/&gt; And then print @models will results like&lt;br/&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@vendors</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- device_models-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- device_models-method -->
+
+    
+      <div id="method-i-device_vendors" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">device_vendors</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="device_vendors-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">device_vendors</span>
+  <span class="ruby-ivar">@vendors</span> = <span class="ruby-identifier">deviceVendors</span>()
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;&lt;br/&gt; @vendors = deviceVendors&lt;br/&gt; And then print @vendors will results like&lt;br/&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@vendors</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- device_vendors-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- device_vendors-method -->
+
+    
+      <div id="method-i-device_view" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">device_view</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="device_view-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">device_view</span>
+  <span class="ruby-ivar">@vendors</span> = <span class="ruby-identifier">deviceView</span>(<span class="ruby-string">&quot;Nokia&quot;</span>,<span class="ruby-string">&quot;N95&quot;</span>)
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;&lt;br/&gt; @models = deviceView('Nokia','N95')&lt;br/&gt; And then print @models will results like&lt;br/&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@vendors</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- device_view-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- device_view-method -->
+
+    
+      <div id="method-i-device_whathas" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">device_whathas</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="device_whathas-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">device_whathas</span>
+  <span class="ruby-ivar">@vendors</span> = <span class="ruby-identifier">deviceWhatHas</span>(<span class="ruby-string">'network'</span>, <span class="ruby-string">'CDMA'</span>)
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;&lt;br/&gt; @models = deviceWhatHas('network','CDMA')&lt;br/&gt; And then print @models will results like&lt;br/&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@vendors</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- device_whathas-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- device_whathas-method -->
+
+    
+      <div id="method-i-fetch_specs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fetch_specs</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fetch_specs-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 136</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fetch_specs</span>
+  <span class="ruby-ivar">@vendors</span> = <span class="ruby-identifier">siteFetchSpecs</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@vendors</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fetch_specs-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fetch_specs-method -->
+
+    
+      <div id="method-i-fetch_trees" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fetch_trees</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fetch_trees-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 131</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fetch_trees</span>
+  <span class="ruby-identifier">data</span> = <span class="ruby-identifier">siteFetchTrees</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fetch_trees-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fetch_trees-method -->
+
+    
+      <div id="method-i-index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">index</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 5</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'
+&lt;h1&gt;&lt;center&gt;Handset Detection Rails API Kit Demo&lt;/center&gt;&lt;/h1&gt;
+
+    &lt;h3&gt;There are following Methods&lt;/h3&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Install gem in Gemfile i.e gem &quot;handsetdetection&quot;&lt;/li&gt;
+      &lt;li&gt;Add &quot;handset_detection&quot; at the top of your Application Controller i.e. &lt;br&gt;
+        &amp;nbsp;&amp;nbsp;class ApplicationController &lt; ActionController::Base&lt;br&gt;
+        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;require &quot;handset_detection&quot;&lt;br&gt;
+        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;.&lt;br&gt;
+        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;.&lt;br&gt;
+        &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;.&lt;br&gt;
+        &amp;nbsp;&amp;nbsp;end
+      &lt;/li&gt;
+      &lt;li&gt;Thats it, use Handset detection Methods anywhere in rails application&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;h3&gt; Examples of each method &lt;/h3&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/device_vendors&quot;&gt;deviceVendors&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/device_models&quot;&gt;deviceModels(&quot;Sagem&quot;)&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/device_view&quot;&gt;deviceView(&quot;Nokia&quot;,&quot;N95&quot;)&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/device_whathas&quot;&gt;deviceWhatHas(&quot;network&quot;,&quot;CDMA&quot;)&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/site_detect&quot;&gt;For Server detection , pass header and server_detect = 1 to detect method e.g.&lt;br/&gt;&lt;br/&gt;detect({
+        &quot;Host&quot;=&gt;&quot;localhost&quot;,
+        &quot;Accept&quot;=&gt;&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
+        &quot;Accept-Language&quot;=&gt;&quot;en-us,en;q=0.5&quot;,
+        &quot;Accept-Encoding&quot;=&gt;&quot;gzip, deflate&quot;,
+        &quot;Connection&quot;=&gt;&quot;keep-alive&quot;,
+        &quot;Cache-Control&quot;=&gt;&quot;max-age=0&quot;,
+        &quot;ipaddress&quot;=&gt;&quot;127.0.0.1&quot;,
+        &quot;User-Agent&quot;=&gt;&quot;NokiaN95&quot;,
+        &quot;x-wap-profile&quot;=&gt;&quot;http://nds1.nds.nokia.com/uaprof/NN95-1r100.xml&quot;
+      },server_detect = 1)&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/local_detect&quot;&gt;For Local detection , pass header and server_detect = 0 to detect method e.g.&lt;br/&gt;&lt;br/&gt;detect({
+        &quot;Host&quot;=&gt;&quot;localhost&quot;,
+        &quot;Accept&quot;=&gt;&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
+        &quot;Accept-Language&quot;=&gt;&quot;en-us,en;q=0.5&quot;,
+        &quot;Accept-Encoding&quot;=&gt;&quot;gzip, deflate&quot;,
+        &quot;Connection&quot;=&gt;&quot;keep-alive&quot;,
+        &quot;Cache-Control&quot;=&gt;&quot;max-age=0&quot;,
+        &quot;ipaddress&quot;=&gt;&quot;127.0.0.1&quot;,
+        &quot;User-Agent&quot;=&gt;&quot;NokiaN95&quot;,
+        &quot;x-wap-profile&quot;=&gt;&quot;http://nds1.nds.nokia.com/uaprof/NN95-1r100.xml&quot;
+      },server_detect = 0)&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/fetch_trees&quot;&gt;siteFetchTrees&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/fetch_specs&quot;&gt;siteFetchSpecs&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/set_cache_manually&quot;&gt;Set Cache&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/delete_cache_manually&quot;&gt;Delete Cache&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/local_test&quot;&gt;Local Detection Test&lt;/a&gt; &lt;/li&gt;
+      &lt;li&gt; &lt;a href=&quot;/handset/site_test&quot;&gt;Server Detection Test&lt;/a&gt; &lt;/li&gt;
+
+    &lt;/ul&gt;
+'</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div><!-- index-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- index-method -->
+
+    
+      <div id="method-i-local_detect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">local_detect</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="local_detect-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">local_detect</span>
+  <span class="ruby-identifier">d</span> = <span class="ruby-identifier">detect</span>({
+    <span class="ruby-string">&quot;Host&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;localhost&quot;</span>,
+    <span class="ruby-string">&quot;Accept&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;</span>,
+    <span class="ruby-string">&quot;Accept-Language&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;en-us,en;q=0.5&quot;</span>,
+    <span class="ruby-string">&quot;Accept-Encoding&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;gzip, deflate&quot;</span>,
+    <span class="ruby-string">&quot;Connection&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;keep-alive&quot;</span>,
+    <span class="ruby-string">&quot;Cache-Control&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;max-age=0&quot;</span>,
+    <span class="ruby-string">'user-agent'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)'</span>,
+    <span class="ruby-string">&quot;x-wap-profile&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">'http://wap.sonyericsson.com/UAprof/LT15iR301.xml'</span>
+  },<span class="ruby-identifier">server_detect</span> = <span class="ruby-value">0</span>)
+  <span class="ruby-comment">#debugger</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'&lt;br/&gt;detect method take two arguments , &lt;br/&gt;1st is data header and &lt;br/&gt;2nd is detection method (send 1 for server detection and 0 for local detection , if no argument is passed then server detection is used&lt;br/&gt;&lt;br/&gt; d = detect({
+    &quot;Host&quot;=&gt;&quot;localhost&quot;,
+    &quot;Accept&quot;=&gt;&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
+    &quot;Accept-Language&quot;=&gt;&quot;en-us,en;q=0.5&quot;,
+    &quot;Accept-Encoding&quot;=&gt;&quot;gzip, deflate&quot;,
+    &quot;Connection&quot;=&gt;&quot;keep-alive&quot;,
+    &quot;Cache-Control&quot;=&gt;&quot;max-age=0&quot;,
+    &quot;ipaddress&quot;=&gt;&quot;127.0.0.1&quot;,
+    &quot;user-agent&quot; =&gt; &quot;Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)&quot;,
+    &quot;x-wap-profile&quot;=&gt;&quot;http://wap.sonyericsson.com/UAprof/LT15iR301.xml&quot;
+  },server_detect = 0)&lt;br/&gt;&lt;br/&gt; And then print d.to_s will results like&lt;br/&gt;&lt;br/&gt;'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">to_s</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- local_detect-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- local_detect-method -->
+
+    
+      <div id="method-i-local_test" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">local_test</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="local_test-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 153</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">local_test</span>
+  <span class="ruby-identifier">test_str</span> = <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-identifier">test_count</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">$gls</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">d</span> = <span class="ruby-identifier">detect</span>({
+        <span class="ruby-string">&quot;Host&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;localhost&quot;</span>,
+        <span class="ruby-string">&quot;Accept&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;</span>,
+        <span class="ruby-string">&quot;Accept-Language&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;en-us,en;q=0.5&quot;</span>,
+        <span class="ruby-string">&quot;Accept-Encoding&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;gzip, deflate&quot;</span>,
+        <span class="ruby-string">&quot;Connection&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;keep-alive&quot;</span>,
+        <span class="ruby-string">&quot;Cache-Control&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;max-age=0&quot;</span>,
+        <span class="ruby-string">&quot;user-agent&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">value</span>[<span class="ruby-string">'user-agent'</span>],
+        <span class="ruby-string">&quot;x-wap-profile&quot;</span>=<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">value</span>[<span class="ruby-string">'x-wap-profile'</span>]
+      },<span class="ruby-identifier">server_detect</span> = <span class="ruby-value">0</span>)
+      
+      <span class="ruby-identifier">test_count</span> = <span class="ruby-identifier">test_count</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">test_str</span> = <span class="ruby-identifier">test_str</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;User-agent: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">value</span>[<span class="ruby-string">'user-agent'</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;&lt;br/&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;profile: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">value</span>[<span class="ruby-string">'x-wap-profile'</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;&lt;br/&gt;&lt;br/&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;Device Detection Response: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;&lt;br/&gt;================================================================================================&lt;br/&gt;&quot;</span>
+  }
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">test_str</span>  <span class="ruby-operator">+</span> <span class="ruby-string">&quot;               Count: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">test_count</span>.<span class="ruby-identifier">to_s</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- local_test-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- local_test-method -->
+
+    
+      <div id="method-i-set_cache_manually" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_cache_manually</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_cache_manually-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 149</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_cache_manually</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Just call set_cache Method to set both cache spec and cache tree&lt;br/&gt;This will return True if both are set&lt;br/&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">set_cache</span>.<span class="ruby-identifier">to_s</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_cache_manually-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_cache_manually-method -->
+
+    
+      <div id="method-i-site_detect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">site_detect</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="site_detect-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 82</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">site_detect</span>
+  <span class="ruby-identifier">d</span> = <span class="ruby-identifier">detect</span>({
+    <span class="ruby-string">&quot;Host&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;localhost&quot;</span>,
+    <span class="ruby-string">&quot;Accept&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;</span>,
+    <span class="ruby-string">&quot;Accept-Language&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;en-us,en;q=0.5&quot;</span>,
+    <span class="ruby-string">&quot;Accept-Encoding&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;gzip, deflate&quot;</span>,
+    <span class="ruby-string">&quot;Connection&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;keep-alive&quot;</span>,
+    <span class="ruby-string">&quot;Cache-Control&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;max-age=0&quot;</span>,
+    <span class="ruby-string">&quot;user-agent&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)&quot;</span>,
+    <span class="ruby-string">&quot;x-wap-profile&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;http://wap.sonyericsson.com/UAprof/LT15iR301.xml&quot;</span>
+ },<span class="ruby-identifier">server_detect</span> = <span class="ruby-value">1</span>)
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'&lt;br/&gt;detect method take two arguments , &lt;br/&gt;1st is data header and &lt;br/&gt;2nd is detection method (send 1 for server detection and 0 for local detection , if no argument is passed then server detection is used&lt;br/&gt;&lt;br/&gt; d = detect({
+    &quot;Host&quot;=&gt;&quot;localhost&quot;,
+    &quot;Accept&quot;=&gt;&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
+    &quot;Accept-Language&quot;=&gt;&quot;en-us,en;q=0.5&quot;,
+    &quot;Accept-Encoding&quot;=&gt;&quot;gzip, deflate&quot;,
+    &quot;Connection&quot;=&gt;&quot;keep-alive&quot;,
+    &quot;Cache-Control&quot;=&gt;&quot;max-age=0&quot;,
+    &quot;ipaddress&quot;=&gt;&quot;127.0.0.1&quot;,
+ &quot;user-agent&quot; =&gt; &quot;Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)&quot;,
+    &quot;x-wap-profile&quot;=&gt;&quot;http://wap.sonyericsson.com/UAprof/LT15iR301.xml&quot;
+  },server_detect = 1)&lt;br/&gt;&lt;br/&gt; And then print d.to_s will results like&lt;br/&gt;&lt;br/&gt;'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">to_s</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- site_detect-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- site_detect-method -->
+
+    
+      <div id="method-i-site_test" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">site_test</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="site_test-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 173</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">site_test</span>
+  <span class="ruby-identifier">test_str</span> = <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-identifier">test_count</span> = <span class="ruby-value">0</span>
+
+  <span class="ruby-identifier">$gls</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">d</span> = <span class="ruby-identifier">detect</span>({
+        <span class="ruby-string">&quot;Host&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;localhost&quot;</span>,
+        <span class="ruby-string">&quot;Accept&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;</span>,
+        <span class="ruby-string">&quot;Accept-Language&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;en-us,en;q=0.5&quot;</span>,
+        <span class="ruby-string">&quot;Accept-Encoding&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;gzip, deflate&quot;</span>,
+        <span class="ruby-string">&quot;Connection&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;keep-alive&quot;</span>,
+        <span class="ruby-string">&quot;Cache-Control&quot;</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">&quot;max-age=0&quot;</span>,
+        <span class="ruby-string">&quot;user-agent&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">value</span>[<span class="ruby-string">'user-agent'</span>],
+        <span class="ruby-string">&quot;x-wap-profile&quot;</span>=<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">value</span>[<span class="ruby-string">'x-wap-profile'</span>]
+      },<span class="ruby-identifier">server_detect</span> = <span class="ruby-value">1</span>)
+
+      <span class="ruby-identifier">test_count</span> = <span class="ruby-identifier">test_count</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">test_str</span> = <span class="ruby-identifier">test_str</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;User-agent: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">value</span>[<span class="ruby-string">'user-agent'</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;&lt;br/&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;profile: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">value</span>[<span class="ruby-string">'x-wap-profile'</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;&lt;br/&gt;&lt;br/&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;Device Detection Response: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;&lt;br/&gt;================================================================================================&lt;br/&gt;&quot;</span>
+  }
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">test_str</span>  <span class="ruby-operator">+</span> <span class="ruby-string">&quot;               Count: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">test_count</span>.<span class="ruby-identifier">to_s</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- site_test-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- site_test-method -->
+
+    
+      <div id="method-i-socket_test" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">socket_test</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="socket_test-source">
+            <pre><span class="ruby-comment"># File app/controllers/handset_controller.rb, line 195</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">socket_test</span>
+  <span class="ruby-identifier">x</span> = <span class="ruby-constant">Socket</span>.<span class="ruby-identifier">gethostbyname</span> <span class="ruby-string">&quot;google.com&quot;</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;x&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- socket_test-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- socket_test-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

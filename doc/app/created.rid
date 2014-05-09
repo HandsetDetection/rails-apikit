@@ -1,0 +1,7 @@
+Fri, 09 May 2014 14:22:46 +0800
+doc/README_FOR_APP	Mon, 14 Apr 2014 10:02:20 +0800
+app/controllers/application_controller.rb	Mon, 14 Apr 2014 10:02:19 +0800
+app/controllers/handset_controller.rb	Mon, 14 Apr 2014 10:02:19 +0800
+app/helpers/application_helper.rb	Mon, 14 Apr 2014 10:02:19 +0800
+app/helpers/handset_helper.rb	Mon, 14 Apr 2014 10:02:19 +0800
+lib/handset_detection.rb	Mon, 14 Apr 2014 10:02:20 +0800

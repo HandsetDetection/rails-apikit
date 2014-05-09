@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>module ActionController::HandsetDetection::InstanceMethods - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../../index.html">Home</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/handset_detection.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-delete_cache">#delete_cache</a>
+    
+    <li><a href="#method-i-detect">#detect</a>
+    
+    <li><a href="#method-i-deviceModels">#deviceModels</a>
+    
+    <li><a href="#method-i-deviceVendors">#deviceVendors</a>
+    
+    <li><a href="#method-i-deviceView">#deviceView</a>
+    
+    <li><a href="#method-i-deviceWhatHas">#deviceWhatHas</a>
+    
+    <li><a href="#method-i-getDevice">#getDevice</a>
+    
+    <li><a href="#method-i-getExtra">#getExtra</a>
+    
+    <li><a href="#method-i-get_branch">#get_branch</a>
+    
+    <li><a href="#method-i-hd_post">#hd_post</a>
+    
+    <li><a href="#method-i-hd_remote">#hd_remote</a>
+    
+    <li><a href="#method-i-localSiteDetect">#localSiteDetect</a>
+    
+    <li><a href="#method-i-match">#match</a>
+    
+    <li><a href="#method-i-matchDevice">#matchDevice</a>
+    
+    <li><a href="#method-i-matchExtra">#matchExtra</a>
+    
+    <li><a href="#method-i-set_cache">#set_cache</a>
+    
+    <li><a href="#method-i-set_cache_specs">#set_cache_specs</a>
+    
+    <li><a href="#method-i-set_cache_specs_local">#set_cache_specs_local</a>
+    
+    <li><a href="#method-i-set_cache_trees">#set_cache_trees</a>
+    
+    <li><a href="#method-i-set_cache_trees_local">#set_cache_trees_local</a>
+    
+    <li><a href="#method-i-siteDetect">#siteDetect</a>
+    
+    <li><a href="#method-i-siteFetchSpecs">#siteFetchSpecs</a>
+    
+    <li><a href="#method-i-siteFetchTrees">#siteFetchTrees</a>
+    
+    <li><a href="#method-i-update_cache">#update_cache</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../../doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../ActionController.html">ActionController</a>
+  
+    <li><a href="../../ActionController/HandsetDetection.html">ActionController::HandsetDetection</a>
+  
+    <li><a href="../../ActionController/HandsetDetection/ClassMethods.html">ActionController::HandsetDetection::ClassMethods</a>
+  
+    <li><a href="../../ActionController/HandsetDetection/Configuration.html">ActionController::HandsetDetection::Configuration</a>
+  
+    <li><a href="../../ActionController/HandsetDetection/HandsetDetectionConfigFileNotFoundException.html">ActionController::HandsetDetection::HandsetDetectionConfigFileNotFoundException</a>
+  
+    <li><a href="../../ActionController/HandsetDetection/InstanceMethods.html">ActionController::HandsetDetection::InstanceMethods</a>
+  
+    <li><a href="../../ActionController/HandsetDetection/SingletonMethods.html">ActionController::HandsetDetection::SingletonMethods</a>
+  
+    <li><a href="../../ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="../../ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="../../HandsetController.html">HandsetController</a>
+  
+    <li><a href="../../HandsetHelper.html">HandsetHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module ActionController::HandsetDetection::InstanceMethods</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-delete_cache" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_cache</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="delete_cache-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 128</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_cache</span>
+  <span class="ruby-identifier">@@cache</span>.<span class="ruby-identifier">clear</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_cache-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_cache-method -->
+
+    
+      <div id="method-i-detect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">detect</span><span
+            class="method-args">(data,server_detect=1)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="detect-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">detect</span>(<span class="ruby-identifier">data</span>,<span class="ruby-identifier">server_detect</span>=<span class="ruby-value">1</span>)
+  <span class="ruby-comment">#@@cache = ActiveSupport::Cache::FileStore.new(Rails.root.to_s + &quot;/tmp/handset_cache_store&quot;)</span>
+  <span class="ruby-identifier">@@cache</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Cache</span>.<span class="ruby-identifier">lookup_store</span>(<span class="ruby-value">:memory_store</span>)
+  <span class="ruby-identifier">reply</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">non_mobile</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'non_mobile'</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">data</span>[<span class="ruby-string">'user-agent'</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">'user-agent'</span>].<span class="ruby-identifier">match</span>(<span class="ruby-identifier">non_mobile</span>) <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+      <span class="ruby-identifier">reply</span>[<span class="ruby-string">&quot;status&quot;</span>] = <span class="ruby-value">301</span>
+      <span class="ruby-identifier">reply</span>[<span class="ruby-string">&quot;message&quot;</span>] = <span class="ruby-string">&quot;FastFail : Probable bot, spider or script&quot;</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">reply</span>
+    <span class="ruby-keyword">end</span>      
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">server_detect</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">siteDetect</span>(<span class="ruby-identifier">data</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">server_detect</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">resp_data</span> = <span class="ruby-identifier">localSiteDetect</span>(<span class="ruby-identifier">data</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">resp_data</span>[<span class="ruby-string">&quot;status&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-value">301</span>
+      <span class="ruby-identifier">set_cache</span>()
+      <span class="ruby-identifier">resp_data</span> = <span class="ruby-identifier">localSiteDetect</span>(<span class="ruby-identifier">data</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">resp_data</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">reply</span>[<span class="ruby-string">&quot;class&quot;</span>] = <span class="ruby-string">&quot;unknown&quot;</span>
+    <span class="ruby-identifier">reply</span>[<span class="ruby-string">'message'</span>]=<span class="ruby-string">&quot;Invalid detection method selected , use 1 for server detection and 0 for local detection&quot;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">reply</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- detect-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- detect-method -->
+
+    
+      <div id="method-i-deviceModels" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">deviceModels</span><span
+            class="method-args">(vendor)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="deviceModels-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">deviceModels</span>(<span class="ruby-identifier">vendor</span>)
+  <span class="ruby-identifier">rep</span> = <span class="ruby-identifier">hd_remote</span>(<span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'models'</span>) <span class="ruby-operator">+</span><span class="ruby-node">&quot;/#{vendor}.json&quot;</span>,<span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-identifier">headers</span>,<span class="ruby-identifier">body</span> = <span class="ruby-identifier">rep</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\r\n\r\n&quot;</span>,<span class="ruby-value">2</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">body</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- deviceModels-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- deviceModels-method -->
+
+    
+      <div id="method-i-deviceVendors" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">deviceVendors</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="deviceVendors-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">deviceVendors</span>
+  <span class="ruby-identifier">rep</span> = <span class="ruby-identifier">hd_remote</span>(<span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'vendors'</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;.json&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-identifier">headers</span>,<span class="ruby-identifier">body</span> = <span class="ruby-identifier">rep</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\r\n\r\n&quot;</span>,<span class="ruby-value">2</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">body</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- deviceVendors-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- deviceVendors-method -->
+
+    
+      <div id="method-i-deviceView" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">deviceView</span><span
+            class="method-args">(vendor, model)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="deviceView-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">deviceView</span>(<span class="ruby-identifier">vendor</span>, <span class="ruby-identifier">model</span>)
+  <span class="ruby-identifier">rep</span> = <span class="ruby-identifier">hd_remote</span>(<span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'view'</span>) <span class="ruby-operator">+</span> <span class="ruby-node">&quot;/#{vendor}/#{model}.json&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-identifier">headers</span>,<span class="ruby-identifier">body</span> = <span class="ruby-identifier">rep</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\r\n\r\n&quot;</span>,<span class="ruby-value">2</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">body</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- deviceView-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- deviceView-method -->
+
+    
+      <div id="method-i-deviceWhatHas" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">deviceWhatHas</span><span
+            class="method-args">(key, value)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="deviceWhatHas-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">deviceWhatHas</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+  <span class="ruby-identifier">rep</span> = <span class="ruby-identifier">hd_remote</span>(<span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'whathas'</span>) <span class="ruby-operator">+</span> <span class="ruby-node">&quot;/#{key}/#{value}.json&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-identifier">headers</span>,<span class="ruby-identifier">body</span> = <span class="ruby-identifier">rep</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\r\n\r\n&quot;</span>,<span class="ruby-value">2</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">body</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- deviceWhatHas-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- deviceWhatHas-method -->
+
+    
+      <div id="method-i-getDevice" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getDevice</span><span
+            class="method-args">(headers)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getDevice-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 299</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getDevice</span>(<span class="ruby-identifier">headers</span>)
+  <span class="ruby-identifier">agent</span> = <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-identifier">osHeader</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">browserHeader</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">headers</span> = <span class="ruby-identifier">headers</span>.<span class="ruby-identifier">inject</span>({}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hash</span>, <span class="ruby-identifier">keys</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">headers</span>[<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">downcase</span>] = <span class="ruby-identifier">keys</span>[<span class="ruby-value">1</span>]
+    <span class="ruby-identifier">headers</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">headers</span>[<span class="ruby-string">'x-operamini-phone'</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-comment">#and headers['x-operamini-phone'] != &quot;? # ?&quot;)</span>
+                   <span class="ruby-identifier">id</span> = <span class="ruby-identifier">matchDevice</span>(<span class="ruby-string">'x-operamini-phone'</span>,<span class="ruby-identifier">headers</span>[<span class="ruby-string">'x-operamini-phone'</span>])
+                      <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span>
+                              <span class="ruby-keyword">return</span> <span class="ruby-identifier">id</span>
+                      <span class="ruby-keyword">end</span>
+                      <span class="ruby-identifier">headers</span>[<span class="ruby-string">'x-operamini-phone'</span>] = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">headers</span>[<span class="ruby-string">'profile'</span>].<span class="ruby-identifier">nil?</span>
+                      <span class="ruby-identifier">id</span> =<span class="ruby-identifier">matchDevice</span>(<span class="ruby-string">'profile'</span>,<span class="ruby-identifier">headers</span>[<span class="ruby-string">'profile'</span>])
+                      <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span>
+                              <span class="ruby-keyword">return</span> <span class="ruby-identifier">id</span>
+                      <span class="ruby-keyword">end</span>
+                      <span class="ruby-identifier">headers</span>[<span class="ruby-string">'profile'</span>] = <span class="ruby-keyword">nil</span>
+              <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">headers</span>[<span class="ruby-string">'x-wap-profile'</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">id</span> =<span class="ruby-identifier">matchDevice</span>(<span class="ruby-string">'profile'</span>,<span class="ruby-identifier">headers</span>[<span class="ruby-string">'x-wap-profile'</span>])
+                      <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span>
+                              <span class="ruby-keyword">return</span> <span class="ruby-identifier">id</span>
+    <span class="ruby-keyword">end</span>
+                      <span class="ruby-identifier">headers</span>[<span class="ruby-string">'profile'</span>] = <span class="ruby-keyword">nil</span>
+              <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment">###############################################################################</span>
+  <span class="ruby-identifier">order</span> = [<span class="ruby-string">'x-operamini-phone-ua'</span>, <span class="ruby-string">'x-mobile-ua'</span>, <span class="ruby-string">'user-agent'</span>]
+  <span class="ruby-identifier">reg_match</span> = <span class="ruby-regexp">%r^x-/</span>
+  <span class="ruby-identifier">headers</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+                      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">order</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+      <span class="ruby-identifier">m</span> = <span class="ruby-identifier">key</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">reg_match</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">m</span>.<span class="ruby-identifier">nil?</span>
+                                <span class="ruby-identifier">order</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">key</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+              }
+  <span class="ruby-comment">###############################################################################</span>
+              <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">headers</span>[<span class="ruby-string">'user-agent'</span>].<span class="ruby-identifier">nil?</span>
+                      <span class="ruby-identifier">agent</span> = <span class="ruby-identifier">headers</span>[<span class="ruby-string">'user-agent'</span>]
+  <span class="ruby-keyword">end</span>
+
+              <span class="ruby-identifier">order</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+                  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">headers</span>[<span class="ruby-identifier">item</span>].<span class="ruby-identifier">nil?</span>
+
+                              <span class="ruby-identifier">id</span> = <span class="ruby-identifier">matchDevice</span>(<span class="ruby-string">'user-agent'</span>, <span class="ruby-identifier">headers</span>[<span class="ruby-identifier">item</span>])
+                              <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span>
+                                      <span class="ruby-identifier">osHeader</span> = <span class="ruby-identifier">item</span>
+                                      <span class="ruby-identifier">browserHeader</span> = <span class="ruby-identifier">item</span>
+                          <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span> <span class="ruby-operator">==</span> <span class="ruby-string">'x-operamini-phone-ua'</span> <span class="ruby-keyword">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">headers</span>[<span class="ruby-string">'user-agent'</span>].<span class="ruby-identifier">nil?</span>
+                                              <span class="ruby-identifier">browserHeader</span> = <span class="ruby-string">'user-agent'</span>
+                                      <span class="ruby-keyword">end</span>
+                                      <span class="ruby-keyword">return</span> <span class="ruby-identifier">id</span>
+                              <span class="ruby-keyword">end</span>
+                            <span class="ruby-comment">#unset($headers[$item]);</span>
+                      <span class="ruby-keyword">end</span>
+              }
+
+              <span class="ruby-keyword">return</span> <span class="ruby-identifier">matchDevice</span>(<span class="ruby-string">'user-agent'</span>, <span class="ruby-identifier">agent</span>,<span class="ruby-string">'1'</span>)
+
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getDevice-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getDevice-method -->
+
+    
+      <div id="method-i-getExtra" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getExtra</span><span
+            class="method-args">(cls, valuearr)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getExtra-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 370</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getExtra</span>(<span class="ruby-identifier">cls</span>, <span class="ruby-identifier">valuearr</span>)
+  <span class="ruby-comment">#debugger      </span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">cls</span> <span class="ruby-operator">==</span> <span class="ruby-string">'platform'</span> 
+    <span class="ruby-identifier">checkOrder</span> = [<span class="ruby-string">'x-operamini-phone-ua'</span>,<span class="ruby-string">'user-agent'</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">valuearr</span>.<span class="ruby-identifier">keys</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">cls</span> <span class="ruby-operator">==</span> <span class="ruby-string">'browser'</span> 
+    <span class="ruby-identifier">checkOrder</span> = [<span class="ruby-string">'agent'</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">valuearr</span>.<span class="ruby-identifier">keys</span>                       
+  <span class="ruby-keyword">end</span>
+
+  
+  <span class="ruby-identifier">checkOrder</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">field</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">field</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">'x-'</span>).<span class="ruby-identifier">to_s</span>  
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">valuearr</span>[<span class="ruby-identifier">field</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-comment">#and (field == 'user-agent' or field.include?('x-'))</span>
+      <span class="ruby-identifier">id</span> = <span class="ruby-identifier">matchExtra</span>(<span class="ruby-string">'user-agent'</span>, <span class="ruby-identifier">valuearr</span>[<span class="ruby-identifier">field</span>], <span class="ruby-identifier">cls</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span> 
+          <span class="ruby-comment">#returned             </span>
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">id</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;id&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span>            
+          <span class="ruby-comment">#ok</span>
+          
+      <span class="ruby-keyword">end</span>
+          <span class="ruby-comment">#</span>
+    <span class="ruby-keyword">end</span>
+  }
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>;
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getExtra-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getExtra-method -->
+
+    
+      <div id="method-i-get_branch" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_branch</span><span
+            class="method-args">(header)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_branch-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 456</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_branch</span>(<span class="ruby-identifier">header</span>)
+  <span class="ruby-comment">#debugger</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">@@cache</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">header</span>)
+                      <span class="ruby-keyword">return</span> <span class="ruby-identifier">@@cache</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">header</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_branch-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_branch-method -->
+
+    
+      <div id="method-i-hd_post" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">hd_post</span><span
+            class="method-args">(apiserver,serverip,url,jsondata,suburl)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="hd_post-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">hd_post</span>(<span class="ruby-identifier">apiserver</span>,<span class="ruby-identifier">serverip</span>,<span class="ruby-identifier">url</span>,<span class="ruby-identifier">jsondata</span>,<span class="ruby-identifier">suburl</span>)
+  <span class="ruby-identifier">username</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'username'</span>)
+  <span class="ruby-identifier">realm</span> = <span class="ruby-string">'APIv3'</span>
+  <span class="ruby-identifier">secret</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'password'</span>)
+
+              <span class="ruby-identifier">port</span> = <span class="ruby-value">80</span>
+              <span class="ruby-identifier">nc</span> = <span class="ruby-string">&quot;00000001&quot;</span>
+
+              <span class="ruby-identifier">cnonce</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-node">&quot;#{Time.now}#{@secret}&quot;</span>)
+          <span class="ruby-identifier">qop</span> = <span class="ruby-string">'auth'</span>
+
+          <span class="ruby-identifier">ha1</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-node">&quot;#{username}:#{realm}:#{secret}&quot;</span>)
+
+  <span class="ruby-identifier">ha2</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-node">&quot;POST:/apiv3/#{suburl}.json&quot;</span>)
+
+          <span class="ruby-identifier">response</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-node">&quot;#{ha1}:APIv3:#{nc}:#{cnonce}:#{qop}:#{ha2}&quot;</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'use_proxy'</span>) <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">pserver</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'proxy_server'</span>)
+    <span class="ruby-identifier">port</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'proxy_port'</span>)
+    <span class="ruby-identifier">user</span>  = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'proxy_user'</span>)
+    <span class="ruby-identifier">pass</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'proxy_pass'</span>)
+    <span class="ruby-identifier">socket</span> = <span class="ruby-constant">TCPSocket</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">pserver</span>,<span class="ruby-identifier">port</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">socket</span> = <span class="ruby-constant">TCPSocket</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">serverip</span>,<span class="ruby-identifier">port</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">hd_request</span> = <span class="ruby-node">&quot;POST #{url} HTTP/1.0\r\n&quot;</span>
+    <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;Host: #{apiserver}\r\n&quot;</span>
+    
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'use_proxy'</span>) <span class="ruby-operator">==</span> <span class="ruby-value">1</span> 
+    <span class="ruby-identifier">u</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'proxy_user'</span>)
+    <span class="ruby-identifier">p</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'proxy_pass'</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">u</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">p</span>.<span class="ruby-identifier">nil?</span>
+                        <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;Proxy-Authorization:Basic &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">base64_encode</span>(<span class="ruby-node">&quot;#{u}:#{p}&quot;</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;\r\n&quot;</span>
+                      <span class="ruby-keyword">end</span>
+              <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span>  <span class="ruby-string">&quot;Content-Type: application/json\r\n&quot;</span>;
+
+            <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span>  <span class="ruby-string">'Authorization: Digest username='</span>
+  <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span> <span class="ruby-string">'&quot;'</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'username'</span>) <span class="ruby-operator">+</span> <span class="ruby-string">'&quot;'</span> <span class="ruby-operator">+</span> <span class="ruby-string">'realm=&quot;APIv3&quot;, nonce=&quot;APIv3&quot;,'</span>
+
+  <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;uri=/apiv3/#{suburl}.json, qop=auth, nc=00000001, &quot;</span>
+  <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span> <span class="ruby-string">'cnonce=&quot;'</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;#{cnonce}&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-string">'&quot;, '</span>
+  <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span> <span class="ruby-string">'response=&quot;'</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;#{response}&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-string">'&quot;, '</span>
+
+  <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span> <span class="ruby-string">'opaque=&quot;APIv3&quot;'</span>
+  <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;\r\n&quot;</span>
+              <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span>  <span class="ruby-node">&quot;Content-length: #{jsondata.length}\r\n\r\n&quot;</span>
+  <span class="ruby-identifier">hd_request</span> = <span class="ruby-identifier">hd_request</span> <span class="ruby-operator">+</span>  <span class="ruby-node">&quot;#{jsondata}\r\n\r\n&quot;</span>
+  <span class="ruby-identifier">socket</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">hd_request</span>)
+
+              <span class="ruby-identifier">hd_reply</span> = <span class="ruby-identifier">socket</span>.<span class="ruby-identifier">read</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">hd_reply</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- hd_post-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- hd_post-method -->
+
+    
+      <div id="method-i-hd_remote" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">hd_remote</span><span
+            class="method-args">(suburl, data)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>private</p>
+          
+
+          
+          <div class="method-source-code" id="hd_remote-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 159</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">hd_remote</span>(<span class="ruby-identifier">suburl</span>, <span class="ruby-identifier">data</span>)
+  <span class="ruby-identifier">apiserver</span> =  <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'apiserver'</span>)
+              <span class="ruby-identifier">url</span> = <span class="ruby-string">&quot;http://&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">apiserver</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/apiv3&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">suburl</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;.json&quot;</span>
+  <span class="ruby-identifier">serverip</span> = <span class="ruby-identifier">apiserver</span>
+              <span class="ruby-identifier">jsondata</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">to_json</span>
+  <span class="ruby-identifier">servers</span> = <span class="ruby-constant">Socket</span>.<span class="ruby-identifier">gethostbyname</span>(<span class="ruby-identifier">apiserver</span>)
+  <span class="ruby-comment">#servers = servers.shuffle</span>
+  <span class="ruby-identifier">reply</span> = <span class="ruby-string">&quot;nothing&quot;</span>
+  <span class="ruby-identifier">servers</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">serverip</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">reply</span> = <span class="ruby-identifier">hd_post</span>(<span class="ruby-identifier">apiserver</span>,<span class="ruby-identifier">serverip</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">jsondata</span>,<span class="ruby-identifier">suburl</span>)
+    <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reply</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">!=</span> <span class="ruby-value">301</span>
+  }
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">reply</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- hd_remote-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- hd_remote-method -->
+
+    
+      <div id="method-i-localSiteDetect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">localSiteDetect</span><span
+            class="method-args">(headers)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="localSiteDetect-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 231</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">localSiteDetect</span>(<span class="ruby-identifier">headers</span>)
+        <span class="ruby-comment">#@@cache = ActiveSupport::Cache::FileStore.new(Rails.root.to_s + &quot;/tmp/handset_cache_store&quot;)</span>
+  <span class="ruby-identifier">@@cache</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Cache</span>.<span class="ruby-identifier">lookup_store</span>(<span class="ruby-value">:memory_store</span>)
+        <span class="ruby-identifier">reply</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-comment">#device = Hash.new</span>
+  <span class="ruby-comment">#if !(@@cache.exist?(&quot;nokian958gb&quot;) and @@cache.exist?(&quot;htcchacha&quot;) and @@cache.exist?(&quot;nokian9&quot;))</span>
+  <span class="ruby-comment">#  set_cache</span>
+  <span class="ruby-comment">#end</span>
+  <span class="ruby-identifier">id</span> = <span class="ruby-identifier">getDevice</span>(<span class="ruby-identifier">headers</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span>
+          <span class="ruby-identifier">device</span> = <span class="ruby-identifier">@@cache</span>.<span class="ruby-identifier">read</span>(<span class="ruby-string">&quot;device&quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">id</span>)
+          <span class="ruby-identifier">device</span> = <span class="ruby-identifier">device</span>.<span class="ruby-identifier">dup</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">device</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>
+
+                  <span class="ruby-identifier">browser</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+                  <span class="ruby-identifier">platform</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+                  <span class="ruby-identifier">platform_id</span> = <span class="ruby-identifier">getExtra</span>(<span class="ruby-string">'platform'</span>, <span class="ruby-identifier">headers</span>)
+                  <span class="ruby-identifier">browser_id</span> = <span class="ruby-identifier">getExtra</span>(<span class="ruby-string">'browser'</span>, <span class="ruby-identifier">headers</span>)
+                  <span class="ruby-keyword">if</span> <span class="ruby-identifier">platform_id</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span> 
+                          <span class="ruby-identifier">platform</span> = <span class="ruby-identifier">@@cache</span>.<span class="ruby-identifier">read</span>(<span class="ruby-string">&quot;extra&quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">platform_id</span>)
+                          <span class="ruby-identifier">platform</span> = <span class="ruby-identifier">platform</span>.<span class="ruby-identifier">dup</span>
+                  <span class="ruby-keyword">end</span>                  
+                  <span class="ruby-keyword">if</span> <span class="ruby-identifier">browser_id</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>
+                          <span class="ruby-identifier">browser</span> = <span class="ruby-identifier">@@cache</span>.<span class="ruby-identifier">read</span>(<span class="ruby-string">&quot;extra&quot;</span><span class="ruby-operator">+</span> <span class="ruby-identifier">browser_id</span>)
+                          <span class="ruby-identifier">browser</span> = <span class="ruby-identifier">browser</span>.<span class="ruby-identifier">dup</span>
+                  <span class="ruby-keyword">end</span>  
+
+                  <span class="ruby-comment"># Selective merge</span>
+                  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">browser</span>.<span class="ruby-identifier">nil?</span>                     
+                    <span class="ruby-comment">#debugger</span>
+                    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">browser</span>[<span class="ruby-string">'general_browser'</span>].<span class="ruby-identifier">nil?</span>
+                      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">browser</span>[<span class="ruby-string">'general_browser'</span>].<span class="ruby-identifier">empty?</span>
+                          <span class="ruby-identifier">platform</span>[<span class="ruby-string">'general_browser'</span>] = <span class="ruby-identifier">browser</span>[<span class="ruby-string">'general_browser'</span>]
+                          <span class="ruby-identifier">platform</span>[<span class="ruby-string">'general_browser_version'</span>] = <span class="ruby-identifier">browser</span>[<span class="ruby-string">'general_browser_version'</span>]
+                      <span class="ruby-keyword">end</span>
+                    <span class="ruby-keyword">end</span>
+                  <span class="ruby-keyword">end</span>
+                  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">platform</span>.<span class="ruby-identifier">nil?</span>
+                    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">platform</span>[<span class="ruby-string">'general_platform'</span>].<span class="ruby-identifier">nil?</span>
+                      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">platform</span>[<span class="ruby-string">'general_platform'</span>].<span class="ruby-identifier">empty?</span> 
+                          <span class="ruby-identifier">device</span>[<span class="ruby-string">'general_platform'</span>] = <span class="ruby-identifier">platform</span>[<span class="ruby-string">'general_platform'</span>]
+                          <span class="ruby-keyword">if</span> <span class="ruby-identifier">device</span>[<span class="ruby-string">'general_platform_version'</span>].<span class="ruby-identifier">nil?</span>
+                            <span class="ruby-identifier">device</span>[<span class="ruby-string">'general_platform_version'</span>] = <span class="ruby-identifier">platform</span>[<span class="ruby-string">'general_platform_version'</span>] 
+                          <span class="ruby-keyword">end</span>
+                      <span class="ruby-keyword">end</span>
+                    <span class="ruby-keyword">end</span>
+                  <span class="ruby-keyword">end</span>                  
+                  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">platform</span>.<span class="ruby-identifier">nil?</span>
+                    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">platform</span>[<span class="ruby-string">'general_browser'</span>].<span class="ruby-identifier">nil?</span>                       
+                      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">platform</span>[<span class="ruby-string">'general_browser'</span>].<span class="ruby-identifier">empty?</span>
+                          <span class="ruby-identifier">device</span>[<span class="ruby-string">'general_browser'</span>] = <span class="ruby-identifier">platform</span>[<span class="ruby-string">'general_browser'</span>]
+                          <span class="ruby-identifier">device</span>[<span class="ruby-string">'general_browser_version'</span>] = <span class="ruby-identifier">platform</span>[<span class="ruby-string">'general_browser_version'</span>]     
+                      <span class="ruby-keyword">end</span>
+                    <span class="ruby-keyword">end</span>
+                  <span class="ruby-keyword">end</span>          
+      <span class="ruby-identifier">reply</span>[<span class="ruby-string">'status'</span>] = <span class="ruby-value">0</span>
+      <span class="ruby-identifier">reply</span>[<span class="ruby-string">'class'</span>] = <span class="ruby-string">'Mobile'</span>
+      <span class="ruby-identifier">reply</span>[<span class="ruby-string">'hd_specs'</span>] = <span class="ruby-identifier">device</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">reply</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">reply</span>[<span class="ruby-string">'status'</span>] = <span class="ruby-value">301</span>
+  <span class="ruby-identifier">reply</span>[<span class="ruby-string">'message'</span>] = <span class="ruby-string">' :Local detect nothing found, try site detection '</span>
+  <span class="ruby-identifier">reply</span>[<span class="ruby-string">'class'</span>] = <span class="ruby-string">': unknown  '</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">reply</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- localSiteDetect-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- localSiteDetect-method -->
+
+    
+      <div id="method-i-match" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">match</span><span
+            class="method-args">(header,value,treetag)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="match-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 422</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">match</span>(<span class="ruby-identifier">header</span>,<span class="ruby-identifier">value</span>,<span class="ruby-identifier">treetag</span>)
+        <span class="ruby-identifier">f</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">r</span> = <span class="ruby-value">0</span>   
+      <span class="ruby-comment">#debugger</span>
+      <span class="ruby-identifier">branch</span> = <span class="ruby-identifier">get_branch</span>(<span class="ruby-identifier">treetag</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">branch</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>  
+  <span class="ruby-keyword">if</span> (<span class="ruby-identifier">header</span> <span class="ruby-operator">==</span> <span class="ruby-string">'user-agent'</span>)
+                    <span class="ruby-comment">#Sieve matching strategy</span>
+                      <span class="ruby-identifier">branch</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">order</span>,<span class="ruby-identifier">filters</span><span class="ruby-operator">|</span>
+                              <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">filter</span>,<span class="ruby-identifier">matches</span><span class="ruby-operator">|</span>
+                                      <span class="ruby-identifier">f</span> = <span class="ruby-identifier">f</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+                                      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">value</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">filter</span>).<span class="ruby-identifier">nil?</span>
+                                              <span class="ruby-identifier">matches</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">match</span>,<span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
+                                                      <span class="ruby-identifier">r</span> = <span class="ruby-identifier">r</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+                                                      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">value</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">match</span>).<span class="ruby-identifier">nil?</span>
+                                                              <span class="ruby-keyword">return</span> <span class="ruby-identifier">node</span>
+                                                      <span class="ruby-keyword">end</span>
+                                              }
+                                      <span class="ruby-keyword">end</span>
+                              }
+                      }
+              <span class="ruby-keyword">else</span>
+                    <span class="ruby-comment">#// Direct matching strategy</span>
+                    
+                      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">branch</span>[<span class="ruby-identifier">value</span>].<span class="ruby-identifier">nil?</span>
+                              <span class="ruby-identifier">node</span> = <span class="ruby-identifier">branch</span>[<span class="ruby-identifier">value</span>]
+                              <span class="ruby-keyword">return</span> <span class="ruby-identifier">node</span>
+                      <span class="ruby-keyword">end</span>
+              <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- match-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- match-method -->
+
+    
+      <div id="method-i-matchDevice" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">matchDevice</span><span
+            class="method-args">(header,value,generic = '0')</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="matchDevice-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 397</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">matchDevice</span>(<span class="ruby-identifier">header</span>,<span class="ruby-identifier">value</span>,<span class="ruby-identifier">generic</span> = <span class="ruby-string">'0'</span>)
+
+          
+  <span class="ruby-identifier">match_filter</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'match_filter'</span>)
+  
+    <span class="ruby-keyword">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-identifier">match_filter</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>
+      <span class="ruby-identifier">value</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-identifier">match_filter</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>],<span class="ruby-string">&quot;&quot;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">treetag</span> = <span class="ruby-identifier">header</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">generic</span>
+  <span class="ruby-identifier">value</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">downcase</span>
+  <span class="ruby-identifier">match</span>(<span class="ruby-identifier">header</span>,<span class="ruby-identifier">value</span>,<span class="ruby-identifier">treetag</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- matchDevice-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- matchDevice-method -->
+
+    
+      <div id="method-i-matchExtra" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">matchExtra</span><span
+            class="method-args">(header, value, cls)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="matchExtra-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 410</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">matchExtra</span>(<span class="ruby-identifier">header</span>, <span class="ruby-identifier">value</span>, <span class="ruby-identifier">cls</span>)
+              <span class="ruby-comment">#debugger</span>
+              <span class="ruby-identifier">value</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">strip</span>
+
+              <span class="ruby-identifier">value</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot; &quot;</span>,<span class="ruby-string">&quot;&quot;</span>)
+              <span class="ruby-identifier">value</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">downcase</span>
+              <span class="ruby-identifier">treetag</span> = <span class="ruby-identifier">header</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">cls</span>
+          
+              <span class="ruby-keyword">return</span> <span class="ruby-identifier">match</span>(<span class="ruby-identifier">header</span>, <span class="ruby-identifier">value</span>, <span class="ruby-identifier">treetag</span>);
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- matchExtra-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- matchExtra-method -->
+
+    
+      <div id="method-i-set_cache" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_cache</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_cache-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_cache</span>
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">'set_cahe'</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-identifier">exists?</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/public/specs'</span>) <span class="ruby-keyword">and</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-identifier">exists?</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/public'</span>)
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">'files already exists , just setting up cache'</span>
+    <span class="ruby-identifier">@@cache</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Cache</span>.<span class="ruby-identifier">lookup_store</span>(<span class="ruby-value">:memory_store</span>)
+    <span class="ruby-identifier">f1</span>=<span class="ruby-identifier">set_cache_specs_local</span>()
+    <span class="ruby-identifier">f2</span>=<span class="ruby-identifier">set_cache_trees_local</span>()
+    <span class="ruby-keyword">return</span> (<span class="ruby-identifier">f1</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">f2</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">'files doest exist , loading data from server , writing to files and then setting up cache'</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">update_cache</span>()
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_cache-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_cache-method -->
+
+    
+      <div id="method-i-set_cache_specs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_cache_specs</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_cache_specs-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 465</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_cache_specs</span>()
+  <span class="ruby-identifier">id</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'site_id'</span>)
+  <span class="ruby-identifier">rep</span> = <span class="ruby-identifier">hd_remote</span>(<span class="ruby-node">&quot;/site/fetchspecs/#{id}.json&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-identifier">headers</span>,<span class="ruby-identifier">body</span> = <span class="ruby-identifier">rep</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\r\n\r\n&quot;</span>,<span class="ruby-value">2</span>)
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/tmp/specs'</span>, <span class="ruby-string">'w'</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">body</span>) }
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">set_cache_specs_local</span>()
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_cache_specs-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_cache_specs-method -->
+
+    
+      <div id="method-i-set_cache_specs_local" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_cache_specs_local</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_cache_specs_local-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 483</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_cache_specs_local</span>()
+        <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/tmp/specs'</span>,<span class="ruby-string">'r'</span>)
+  <span class="ruby-identifier">body</span> = <span class="ruby-identifier">file</span>.<span class="ruby-identifier">read</span>()
+  <span class="ruby-identifier">data</span> = <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">JSON</span>.<span class="ruby-identifier">decode</span> <span class="ruby-identifier">body</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">data</span>[<span class="ruby-string">'devices'</span>].<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">data</span>[<span class="ruby-string">'devices'</span>].<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">device</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">device_id</span> = <span class="ruby-identifier">device</span>[<span class="ruby-string">'Device'</span>][<span class="ruby-string">'_id'</span>]
+      <span class="ruby-identifier">device_specs</span> = <span class="ruby-identifier">device</span>[<span class="ruby-string">'Device'</span>][<span class="ruby-string">'hd_specs'</span>]
+      <span class="ruby-keyword">begin</span>
+        <span class="ruby-identifier">@@cache</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;device&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">device_id</span>.<span class="ruby-identifier">to_s</span>,<span class="ruby-identifier">device_specs</span>)
+      <span class="ruby-keyword">rescue</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">'======================================= ERROR IN SPECS ================================================='</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">device</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">id</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">specs</span>
+      <span class="ruby-keyword">end</span>
+          }
+        <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">data</span>[<span class="ruby-string">'extras'</span>].<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">data</span>[<span class="ruby-string">'extras'</span>].<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">extra</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">extra_id</span> = <span class="ruby-identifier">extra</span>[<span class="ruby-string">'Extra'</span>][<span class="ruby-string">'_id'</span>]
+      <span class="ruby-identifier">extra_specs</span> = <span class="ruby-identifier">extra</span>[<span class="ruby-string">'Extra'</span>][<span class="ruby-string">'hd_specs'</span>]
+      <span class="ruby-keyword">begin</span>
+        <span class="ruby-identifier">@@cache</span>.<span class="ruby-identifier">write</span>(<span class="ruby-string">&quot;extra&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">extra_id</span>.<span class="ruby-identifier">to_s</span>,<span class="ruby-identifier">extra_specs</span>)
+      <span class="ruby-keyword">rescue</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">'======================================= ERROR IN SPECS ================================================='</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">device</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">id</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">specs</span>
+      <span class="ruby-keyword">end</span>
+          }
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_cache_specs_local-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_cache_specs_local-method -->
+
+    
+      <div id="method-i-set_cache_trees" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_cache_trees</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_cache_trees-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 473</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_cache_trees</span>()
+  <span class="ruby-identifier">id</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'site_id'</span>)
+  <span class="ruby-identifier">rep</span> = <span class="ruby-identifier">hd_remote</span>(<span class="ruby-node">&quot;/site/fetchtrees/#{id}.json&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-identifier">headers</span>,<span class="ruby-identifier">body</span> = <span class="ruby-identifier">rep</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\r\n\r\n&quot;</span>,<span class="ruby-value">2</span>)
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/tmp/trees'</span>, <span class="ruby-string">'w'</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">body</span>) }
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">set_cache_trees_local</span>()
+
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_cache_trees-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_cache_trees-method -->
+
+    
+      <div id="method-i-set_cache_trees_local" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_cache_trees_local</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_cache_trees_local-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 519</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_cache_trees_local</span>()
+  <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/tmp/trees'</span>,<span class="ruby-string">'r'</span>)
+  <span class="ruby-identifier">body</span> = <span class="ruby-identifier">file</span>.<span class="ruby-identifier">read</span>()
+  <span class="ruby-identifier">data</span> = <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">JSON</span>.<span class="ruby-identifier">decode</span> <span class="ruby-identifier">body</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">data</span>[<span class="ruby-string">'trees'</span>].<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">branch</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">@@cache</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>,<span class="ruby-identifier">branch</span>)
+  }
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_cache_trees_local-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_cache_trees_local-method -->
+
+    
+      <div id="method-i-siteDetect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">siteDetect</span><span
+            class="method-args">(data)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="siteDetect-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">siteDetect</span>(<span class="ruby-identifier">data</span>)
+  <span class="ruby-identifier">id</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'site_id'</span>)
+              <span class="ruby-identifier">rep</span> = <span class="ruby-identifier">hd_remote</span>(<span class="ruby-node">&quot;/site/detect/#{id}.json&quot;</span>,<span class="ruby-identifier">data</span>)
+  <span class="ruby-identifier">headers</span>,<span class="ruby-identifier">body</span> = <span class="ruby-identifier">rep</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\r\n\r\n&quot;</span>,<span class="ruby-value">2</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">body</span>
+      <span class="ruby-keyword">end</span></pre>
+          </div><!-- siteDetect-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- siteDetect-method -->
+
+    
+      <div id="method-i-siteFetchSpecs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">siteFetchSpecs</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="siteFetchSpecs-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 92</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">siteFetchSpecs</span>()
+  <span class="ruby-identifier">id</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'site_id'</span>)
+  <span class="ruby-identifier">rep</span> = <span class="ruby-identifier">hd_remote</span>(<span class="ruby-node">&quot;/site/fetchspecs/#{id}.json&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-identifier">headers</span>,<span class="ruby-identifier">body</span> = <span class="ruby-identifier">rep</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\r\n\r\n&quot;</span>,<span class="ruby-value">2</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">body</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- siteFetchSpecs-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- siteFetchSpecs-method -->
+
+    
+      <div id="method-i-siteFetchTrees" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">siteFetchTrees</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="siteFetchTrees-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">siteFetchTrees</span>
+  <span class="ruby-identifier">id</span> = <span class="ruby-constant">Configuration</span>.<span class="ruby-identifier">get</span>(<span class="ruby-string">'site_id'</span>)
+  <span class="ruby-identifier">rep</span> = <span class="ruby-identifier">hd_remote</span>(<span class="ruby-node">&quot;/site/fetchtrees/#{id}.json&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-identifier">headers</span>,<span class="ruby-identifier">body</span> = <span class="ruby-identifier">rep</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\r\n\r\n&quot;</span>,<span class="ruby-value">2</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">body</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- siteFetchTrees-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- siteFetchTrees-method -->
+
+    
+      <div id="method-i-update_cache" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_cache</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_cache-source">
+            <pre><span class="ruby-comment"># File lib/handset_detection.rb, line 150</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_cache</span>
+  <span class="ruby-comment">#@@cache = ActiveSupport::Cache::FileStore.new(Rails.root.to_s + &quot;/tmp/handset_cache_store&quot;)</span>
+  <span class="ruby-identifier">@@cache</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Cache</span>.<span class="ruby-identifier">lookup_store</span>(<span class="ruby-value">:memory_store</span>)      
+  <span class="ruby-identifier">f1</span> = <span class="ruby-identifier">set_cache_specs</span>()
+  <span class="ruby-identifier">f2</span> = <span class="ruby-identifier">set_cache_trees</span>()
+  <span class="ruby-keyword">return</span> (<span class="ruby-identifier">f1</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">f2</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_cache-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_cache-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

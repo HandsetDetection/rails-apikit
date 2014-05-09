@@ -1,7 +1,7 @@
 development:
-  username:
-  password:
-  site_id:
+  username: 203a2c5495
+  password: 4Mcy7r7wDFdCDbg2
+  site_id: 50538
   apiserver: api.handsetdetection.com
   use_proxy: 0
   proxy_server:
