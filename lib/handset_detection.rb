@@ -52,7 +52,7 @@ module ActionController
     module InstanceMethods
         
       def deviceVendors
-        rep = hd_remote(Configuration.get('vendors') + ".json", "")
+        rep = hd_remote(Configuration.get('vendors') + ".json", "")        
         headers,body = rep.split("\r\n\r\n",2)
         return body
       end
@@ -157,23 +157,24 @@ module ActionController
 ########################################################################################################################
  #  private
       def hd_remote(suburl, data)
-        apiserver =  Configuration.get('apiserver')
-		    url = "http://" + apiserver + "/apiv3" + suburl + ".json"
+        apiserver =  Configuration.get('apiserver')        
+		    #url = "http://" + apiserver + "/apiv3" + suburl + ".json"        
+        url = "http://" + apiserver + "/apiv3" + suburl
         serverip = apiserver
-		    jsondata = data.to_json
-        servers = Socket.gethostbyname(apiserver)
-        #servers = servers.shuffle
+		    jsondata = data.to_json                
+        servers = Socket.gethostbyname(apiserver)        
+        #servers = servers.shuffle        
         reply = "nothing"
         servers.each{|serverip|
           reply = hd_post(apiserver,serverip, url, jsondata,suburl)
           break if reply['status'] != 301
-        }
-
+        }        
         return reply
       end
 #
-      def hd_post(apiserver,serverip,url,jsondata,suburl)
+      def hd_post(apiserver,serverip,url,jsondata,suburl)        
         username = Configuration.get('username')
+        #puts username
         realm = 'APIv3'
         secret = Configuration.get('password')
 
