@@ -3,6 +3,12 @@ require 'fileutils'
 require 'handset_detection'
 require 'pp'
 
+=begin
+##
+## To test, run command: ruby -I test test/functional/handset_controller_test.rb
+##	
+=end
+
 class HandsetControllerTest < ActionController::TestCase
 	include ActionController::HandsetDetection
 	include ActionController::HandsetDetection::InstanceMethods	
@@ -20,6 +26,12 @@ class HandsetControllerTest < ActionController::TestCase
 
 	def teardown
 		@vendors = nil
+	end
+
+	def test_userCredentials()
+		assert_equal("your_api_username", Configuration.get('username'))
+		assert_equal("your_api_password", Configuration.get('password'))
+		assert_equal("your_api_siteId", Configuration.get('site_id'))
 	end
 
 	def test_deviceVendorsNokia()				
@@ -92,22 +104,21 @@ class HandsetControllerTest < ActionController::TestCase
 	      "Cache-Control"=>"max-age=0",
 	      'user-agent' => 'Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)',
 	      "x-wap-profile"=>'http://wap.sonyericsson.com/UAprof/LT15iR301.xml'
-	    },server_detect = 0)
-	    
-	    _data = JSON.parse(d.to_s)
+	    },server_detect = 0)	   
 
-	    assert_nil(d)	    
+	    _data = JSON.parse(d.to_s)
+	    
+	    assert_nil(_data)	    
 	end
 
 	def test_siteFetchTrees()
-		_data = @fetchTrees
+		_data = @fetchTrees		
 		assert_not_nil(_data)		
 	end
 
 	def test_siteFetchSpecs()
-		_data = @fetchSpecs
+		_data = @fetchSpecs		
 		assert_not_nil(_data)		
 	end
-
 
 end
