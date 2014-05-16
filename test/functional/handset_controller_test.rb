@@ -4,9 +4,7 @@ require 'handset_detection'
 require 'pp'
 
 =begin
-##
-## To test, run command: ruby -I test test/functional/handset_controller_test.rb
-##	
+run command: ruby -I test test/functional/handset_controller_test.rb	
 =end
 
 class HandsetControllerTest < ActionController::TestCase
