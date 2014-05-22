@@ -2,11 +2,9 @@ require 'test_helper'
 require 'fileutils'
 require 'handset_detection'
 require 'pp'
-
 =begin
 run command: ruby -I test test/functional/handset_controller_test.rb	
 =end
-
 class HandsetControllerTest < ActionController::TestCase
 	include ActionController::HandsetDetection
 	include ActionController::HandsetDetection::InstanceMethods	
@@ -19,7 +17,7 @@ class HandsetControllerTest < ActionController::TestCase
 		@devicewWhatHas = JSON.parse(deviceWhatHas('network', 'CDMA'))
 		@fetchTrees = JSON.parse(siteFetchTrees())
 		@fetchSpecs = JSON.parse(siteFetchSpecs)
-		#Rails::logger.debug
+		Rails::logger.debug
 	end
 
 	def teardown
@@ -31,23 +29,44 @@ class HandsetControllerTest < ActionController::TestCase
 		assert_equal("your_api_password", Configuration.get('password'))
 		assert_equal("your_api_siteId", Configuration.get('site_id'))
 	end
+	def test_deviceVendorsPass()
+		_vendor = @vendor	
+		_arrayVendors = ["Cutepad", "Sunstech", "ZeusPAD", "Motorola", "BenQ"]	
+		_arrayVendors.each{ |v| assert(_vendor['vendor'].include?(v), "Device Vendor #{v} not found.") }		
+	end
 
-	def test_deviceVendorsNokia()				
+	def test_deviceVendorsFail()
+		_vendor = @vendor	
+		_arrayVendors = ["FlyingPad", "Arcade", "Cyborgii", "Symbianize", "BingQ", "DroidXV"]	
+		_arrayVendors.each{ |v| assert(_vendor['vendor'].exclude?(v), "Device Vendor #{v} found.") }
+	end
+
+	def test_deviceVendorNokia()				
 		_vendor = @vendor		
 		assert(_vendor['vendor'].include?('Nokia'), "Device Vendor Nokia found.")
 	end
 
-	def test_deviceVendorsCyborg()		
+	def test_deviceVendorCyborg()		
 		_vendor = @vendor
 		assert(_vendor['vendor'].exclude?('Cyborg'), "Device Vendor Cyborg not found.")
 	end
-
-	def test_deviceModelsSagemMyMobileTV()
-		_model = @model
-		assert(_model['model'].include?('myMobileTV'), "Device Model Sagem myMobileTV found.")
+	
+	def test_deviceModelSagemPass()
+		_model = @model		
+		["Vodafone 527", "PUMA Phone M1", "DoCoMo myV-75", "myX-5-2T"].each { |m| assert(_model['model'].include?(m), "Device Model #{m} not found.") }				
 	end
 
-	def test_deviceModelsSagemMySatelliteTV()
+	def test_deviceModelSagemFail()
+		_model = @model		
+		["myCloudPhone", "PANDA Phone", "Volatile-X201", "TitanX1", "iPhone 5S"].each { |m| assert(_model['model'].exclude?(m), "Device Model #{m} found.") }		
+	end
+
+	def test_deviceModelSagemMyMobileTV()
+		_model = @model
+		assert(_model['model'].include?('myMobileTV'), "Device Model Sagem myMobileTV not found.")
+	end
+
+	def test_deviceModelSagemMySatelliteTV()
 		_model = @model
 		assert(_model['model'].include?('mySatelliteTV'), "Device Model Sagem mySatelliteTV not found.")
 	end
@@ -59,7 +78,7 @@ class HandsetControllerTest < ActionController::TestCase
 		assert_equal("Nokia", _deviceView["device"]["general_vendor"])
 	end
 
-	def test_deviceViewNokia8080()
+	def test_deviceViewNokia8080Fail()
 		_deviceView = JSON.parse(deviceView("Nokia","8080"))		
 		assert_equal("301", _deviceView["status"].to_s)		
 	end
@@ -70,7 +89,7 @@ class HandsetControllerTest < ActionController::TestCase
 		assert_equal("Samsung", _devicewWhatHas["devices"][0]["general_vendor"].to_s)		
 		assert_equal("LG", _devicewWhatHas["devices"][1]["general_vendor"])		
 	end
-	
+
 	def test_siteDetect()
 		d = detect({
 	      "Host"=>"localhost",
