@@ -22,6 +22,12 @@ class HandsetControllerTest < ActionController::TestCase
 
 	def teardown
 		@vendors = nil
+		@vendor = nil
+		@model = nil
+		@deviceView = nil
+		@devicewWhatHas = nil
+		@fetchTrees = nil
+		@fetchSpecs = nil		
 	end
 
 	def test_userCredentials()
@@ -43,12 +49,12 @@ class HandsetControllerTest < ActionController::TestCase
 
 	def test_deviceVendorNokia()				
 		_vendor = @vendor		
-		assert(_vendor['vendor'].include?('Nokia'), "Device Vendor Nokia found.")
+		assert(_vendor['vendor'].include?('Nokia'), "Device Vendor Nokia not found.")
 	end
 
 	def test_deviceVendorCyborg()		
 		_vendor = @vendor
-		assert(_vendor['vendor'].exclude?('Cyborg'), "Device Vendor Cyborg not found.")
+		assert(_vendor['vendor'].exclude?('Cyborg'), "Device Vendor Cyborg found.")
 	end
 	
 	def test_deviceModelSagemPass()
