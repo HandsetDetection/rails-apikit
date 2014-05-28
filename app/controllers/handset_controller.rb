@@ -1,6 +1,5 @@
 require 'fileutils'
 
-
 class HandsetController < ApplicationController
   def index
     render :text => '
@@ -53,7 +52,7 @@ class HandsetController < ApplicationController
       <li> <a href="/handset/fetch_trees">siteFetchTrees</a> </li>
       <li> <a href="/handset/fetch_specs">siteFetchSpecs</a> </li>
       <li> <a href="/handset/set_cache_manually">Set Cache</a> </li>
-      <li> <a href="/handset/delete_cache_manually">Delete Cache</a> </li>
+      <li> <a href="/handset/delete_cache_manually">Delete Cache</a> </li>      
       <li> <a href="/handset/local_test">Local Detection Test</a> </li>
       <li> <a href="/handset/site_test">Server Detection Test</a> </li>
 
@@ -151,8 +150,44 @@ class HandsetController < ApplicationController
   end
   
   def local_test
+    data = ''
+    count = 0
+    f = File.open("headers.txt", "r") 
+    start_time = Time.now
+      f.each_line do |line|
+        headers = line.split("|")
+        useragent = headers[0]
+        profile = headers[1].to_s
+        (1..10).each do |i|
+          #data += useragent   
+          detect({
+            "Host"=>"localhost",
+            "Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language"=>"en-us,en;q=0.5",
+            "Accept-Encoding"=>"gzip, deflate",
+            "Connection"=>"keep-alive",
+            "Cache-Control"=>"max-age=0",
+            "user-agent" => useragent,
+            "x-wap-profile"=> profile
+          },server_detect = 0)                                      
+          count += 1        
+        end
+        data += "<br/>"
+      end
+     end_time = Time.now
+     elapsed_time = (end_time - start_time) * 1000
+     elapsedTimeSec = elapsed_time/1000.to_f
+     dps = count / elapsedTimeSec
+     tdps = dps.to_i
+     data += "<br/>"
+     data += "<h1>Test Complete</h1>"
+     data += "<h3>Elapsed time: " + elapsedTimeSec.to_s + "ms, Total detections: " + count.to_s + ", Detections per second: " + tdps.to_s + "</h3>"  
+    render :text => data
+  end
+
+  def local_array_test
     test_str = ""
-    test_count = 0
+    test_count = 0    
     $gls.each{|value|
       d = detect({
           "Host"=>"localhost",
@@ -170,6 +205,7 @@ class HandsetController < ApplicationController
     }
     render :text => test_str  + "               Count: " + test_count.to_s
   end
+
   def site_test
     test_str = ""
     test_count = 0

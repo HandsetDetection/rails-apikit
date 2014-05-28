@@ -10,7 +10,7 @@ Hdrails::Application.routes.draw do
   get "handset/fetch_specs"
   get "handset/delete_cache_manually"
   get "handset/set_cache_manually"
-  get "handset/local_test"
+  get "handset/local_test"  
   get "handset/site_test"
   # The priority is based upon order of creation:
   # first created -> highest priority.
