@@ -8,6 +8,7 @@ Hdrails::Application.routes.draw do
   get "handset/local_detect"
   get "handset/fetch_trees"
   get "handset/fetch_specs"
+  get "handset/fetch_archive"
   get "handset/delete_cache_manually"
   get "handset/set_cache_manually"
   get "handset/local_test"  

@@ -95,6 +95,11 @@ module ActionController
         headers,body = rep.split("\r\n\r\n",2)
         return body
       end
+
+      def siteFetchArchive()
+        id = Configuration.get('site_id')
+        return hd_remote("/site/fetcharchive/#{id}", "")
+      end
 #
       def detect(data,server_detect=1)
         #@@cache = ActiveSupport::Cache::FileStore.new(Rails.root.to_s + "/tmp/handset_cache_store")

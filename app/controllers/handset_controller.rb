@@ -51,6 +51,7 @@ class HandsetController < ApplicationController
       },server_detect = 0)</a> </li>
       <li> <a href="/handset/fetch_trees">siteFetchTrees</a> </li>
       <li> <a href="/handset/fetch_specs">siteFetchSpecs</a> </li>
+      <li> <a href="/handset/fetch_archive">siteFetchArchive</a> </li>
       <li> <a href="/handset/set_cache_manually">Set Cache</a> </li>
       <li> <a href="/handset/delete_cache_manually">Delete Cache</a> </li>      
       <li> <a href="/handset/local_test">Local Detection Test</a> </li>
@@ -135,6 +136,15 @@ class HandsetController < ApplicationController
   def fetch_specs
     @vendors = siteFetchSpecs
     render :text => @vendors
+  end
+
+  def fetch_archive
+    start_time = Time.now
+    data = siteFetchArchive
+    end_time = Time.now
+    elapsed_time = (end_time - start_time) * 1000
+    elapsedTimeSec = elapsed_time/1000.to_f
+    render :text => "<h1>Test Complete</h1><h3>Elapsed time: " + elapsedTimeSec.to_s + "ms</h3>"
   end
 
   def delete_cache_manually
