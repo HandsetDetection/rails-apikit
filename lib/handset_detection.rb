@@ -98,7 +98,8 @@ module ActionController
 
       def siteFetchArchive()
         id = Configuration.get('site_id')
-        return hd_remote("/site/fetcharchive/#{id}", "")
+        rep = hd_remote("/site/fetcharchive/#{id}.json", "")
+        return rep
       end
 #
       def detect(data,server_detect=1)
