@@ -1,6 +1,7 @@
 require "digest"
 require 'socket'
 require 'json'
+require 'zip/zip'
 
 #require 'extensions/all'
 
@@ -97,9 +98,10 @@ module ActionController
       end
 
       def siteFetchArchive()
-        id = Configuration.get('site_id')
-        rep = hd_remote("/site/fetcharchive/#{id}.json", "")
-        return rep
+        id = Configuration.get('site_id')        
+        rep = hd_remote("/site/fetcharchive/#{id}.json", "")                
+        File.open(Rails.root.to_s + '/tmp/ultimate.zip', 'wb') {|f| f.write(rep)}  
+        extract_files()                          
       end
 #
       def detect(data,server_detect=1)
@@ -145,6 +147,7 @@ module ActionController
           @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)
           f1=set_cache_specs_local()
           f2=set_cache_trees_local()
+          #f3=setca
           return (f1 and f2)
         else
           logger.info 'files doest exist , loading data from server , writing to files and then setting up cache'
@@ -158,7 +161,8 @@ module ActionController
         @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)      
         f1 = set_cache_specs()
         f2 = set_cache_trees()
-        return (f1 and f2)
+        f3 = set_cache_devices()
+        return (f1 and f2 and f3)
       end
 ########################################################################################################################
  #  private
@@ -215,7 +219,7 @@ module ActionController
 			      hd_request = hd_request + "Proxy-Authorization:Basic " + base64_encode("#{u}:#{p}") + "\r\n"
 			    end
 		    end
-    	  hd_request = hd_request +  "Content-Type: application/json\r\n";
+    	  hd_request = hd_request +  "Content-Type: application/zip\r\n";
 
    		  hd_request = hd_request +  'Authorization: Digest username='
         hd_request = hd_request + '"' + Configuration.get('username') + '"' + 'realm="APIv3", nonce="APIv3",'
@@ -470,7 +474,7 @@ module ActionController
 
 
       def set_cache_specs()
-	id = Configuration.get('site_id')
+      	id = Configuration.get('site_id')
         rep = hd_remote("/site/fetchspecs/#{id}.json", "")
         headers,body = rep.split("\r\n\r\n",2)
         File.open(Rails.root.to_s + '/tmp/specs', 'w') {|f| f.write(body) }
@@ -483,9 +487,46 @@ module ActionController
         headers,body = rep.split("\r\n\r\n",2)
         File.open(Rails.root.to_s + '/tmp/trees', 'w') {|f| f.write(body) }
         return set_cache_trees_local()
-
       end
 
+      def set_cache_devices()      
+        set_cache_devices_local()        
+      end
+
+      def extract_files()
+        Zip::ZipFile.open(Rails.root.to_s + '/tmp/files/ultimate.zip') { |zip_file|
+          zip_file.each { |f|          
+            f_path=File.join(Rails.root.to_s + '/tmp/files/', f.name.gsub(':','_'))
+            FileUtils.mkdir_p(File.dirname(f_path))            
+            if(f_path=~/\Device_.*json+/)
+              zip_file.extract(f, f_path) unless File.exist?(f_path)
+            end          
+          }
+        }
+        return true
+      end
+
+      def set_cache_devices_local()                   
+        Dir.glob(Rails.root.to_s+'/tmp/files'+"*/*.json") do |filename|          
+          file = File.new(filename,'r')    
+          body = file.read()
+          data = ActiveSupport::JSON.decode body
+          if !data['devices'].nil?
+            data['devices'].each {|device|
+              device_id = device['Device']['_id']
+              device_specs = device['Device']['hd_specs']
+              begin
+                @@cache.write("device" + device_id.to_s,device_specs)
+              rescue
+                logger.info '======================================= ERROR IN SPECS ================================================='
+                logger.info device
+                logger.info id
+                logger.info specs
+              end
+            }
+          end          
+        end                
+      end      
       
       def set_cache_specs_local()
 	      file = File.new(Rails.root.to_s + '/tmp/specs','r')

@@ -138,6 +138,11 @@ class HandsetController < ApplicationController
     render :text => @vendors
   end
 
+  def my_cache
+    data = set_cache_devices
+    render :text => "Cache Archive<br/>" + data.to_s
+  end
+
   def fetch_archive
     start_time = Time.now
     data = siteFetchArchive
