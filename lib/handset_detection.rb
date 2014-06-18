@@ -100,7 +100,7 @@ module ActionController
       def siteFetchArchive()
         id = Configuration.get('site_id')        
         rep = hd_remote("/site/fetcharchive/#{id}.json", "")                
-        File.open(Rails.root.to_s + '/tmp/ultimate.zip', 'wb') {|f| f.write(rep)}  
+        File.open(Rails.root.to_s + '/tmp/files/ultimate.zip', 'wb') {|f| f.write(rep)}  
         extract_files()                          
       end
 #
@@ -145,10 +145,10 @@ module ActionController
         if File::exists?(Rails.root.to_s + '/public/specs') and File::exists?(Rails.root.to_s + '/public')
           logger.info 'files already exists , just setting up cache'
           @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)
-          f1=set_cache_specs_local()
-          f2=set_cache_trees_local()
-          #f3=setca
-          return (f1 and f2)
+          f3=set_cache_devices_local()
+          #f1=set_cache_specs_local()
+          f2=set_cache_trees_local()          
+          return (f3 and f2)
         else
           logger.info 'files doest exist , loading data from server , writing to files and then setting up cache'
           return update_cache()
@@ -159,10 +159,10 @@ module ActionController
       def update_cache
         #@@cache = ActiveSupport::Cache::FileStore.new(Rails.root.to_s + "/tmp/handset_cache_store")
         @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)      
-        f1 = set_cache_specs()
-        f2 = set_cache_trees()
         f3 = set_cache_devices()
-        return (f1 and f2 and f3)
+        #f1 = set_cache_specs()
+        f2 = set_cache_trees()        
+        return (f3 and f2)
       end
 ########################################################################################################################
  #  private
@@ -310,12 +310,12 @@ module ActionController
       def getDevice(headers)
         agent = ""
         osHeader = false
-	browserHeader = false
-        headers = headers.inject({}) do |hash, keys|
-          headers[keys[0].downcase] = keys[1]
-          headers
-        end
-
+	      browserHeader = false           
+        #headers = headers.inject({}) do |hash, keys|
+        #  headers[keys[0].downcase] = keys[1]
+        #  headers
+        #end
+        headers = Hash[ headers.map { |key, value| [key,value.downcase] } ]
         if !headers['x-operamini-phone'].nil? #and headers['x-operamini-phone'] != "? # ?")
 	  		  id = matchDevice('x-operamini-phone',headers['x-operamini-phone'])
 			    if id
@@ -345,6 +345,7 @@ module ActionController
         reg_match = /^x-/i
         headers.each{|key,value|
 			    if !order.include?(key)
+
             m = key.match(reg_match)
             if !m.nil?
 				      order << key
@@ -571,9 +572,9 @@ module ActionController
         if data.nil?
           return false
         end
-        data['trees'].each {|key,branch|
-          @@cache.write(key.to_s,branch)
-        }
+        #data['trees'].each {|key,branch|
+        #  @@cache.write(key.to_s,branch)
+        #}
         return true
       end
 

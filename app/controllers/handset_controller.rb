@@ -138,11 +138,6 @@ class HandsetController < ApplicationController
     render :text => @vendors
   end
 
-  def my_cache
-    data = set_cache_devices
-    render :text => "Cache Archive<br/>" + data.to_s
-  end
-
   def fetch_archive
     start_time = Time.now
     data = siteFetchArchive
@@ -173,20 +168,20 @@ class HandsetController < ApplicationController
         headers = line.split("|")
         useragent = headers[0]
         profile = headers[1].to_s
-        (1..10).each do |i|
+        #(1..10).each do |i|
           #data += useragent   
-          detect({
-            "Host"=>"localhost",
-            "Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language"=>"en-us,en;q=0.5",
-            "Accept-Encoding"=>"gzip, deflate",
-            "Connection"=>"keep-alive",
-            "Cache-Control"=>"max-age=0",
-            "user-agent" => useragent,
-            "x-wap-profile"=> profile
-          },server_detect = 0)                                      
-          count += 1        
-        end
+        detect({
+          "Host"=>"localhost",
+          "Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "Accept-Language"=>"en-us,en;q=0.5",
+          "Accept-Encoding"=>"gzip, deflate",
+          "Connection"=>"keep-alive",
+          "Cache-Control"=>"max-age=0",
+          "user-agent" => useragent,
+          "x-wap-profile"=> profile
+        },server_detect = 0)                                      
+          #count += 1        
+        #end
         data += "<br/>"
       end
      end_time = Time.now

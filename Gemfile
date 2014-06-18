@@ -2,14 +2,18 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.4.rc1'
 
-gem 'rubyzip'
+gem 'rubyzip',  "~> 0.9.9"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
 
+# json gem
 gem 'json'
+
+# json encoding
+gem 'yajl-ruby'
 
 # Gems used only for assets and not required
 # in production environments by default.
