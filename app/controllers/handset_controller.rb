@@ -128,13 +128,6 @@ class HandsetController < ApplicationController
     },server_detect = 0)<br/><br/> And then print d.to_s will results like<br/><br/>' + d.to_s
   end
 
-  def my_test
-    Dir.glob(Rails.root.to_s+'/tmp/files'+"*/*.json") do |filename|          
-      file = File.new(filename,'r')    
-      body = file.read()
-    end
-  end
-
   def fetch_trees
     data = siteFetchTrees
     render :text => data
@@ -187,7 +180,7 @@ class HandsetController < ApplicationController
           "user-agent" => useragent,
           "x-wap-profile"=> profile
         },server_detect = 0)                                      
-          #count += 1        
+        count += 1        
         #end
         data += "<br/>"
       end
@@ -196,15 +189,17 @@ class HandsetController < ApplicationController
      elapsedTimeSec = elapsed_time/1000.to_f
      dps = count / elapsedTimeSec
      tdps = dps.to_i
-     data += "<br/>"
+     #data += "<br/>"
      data += "<h1>Test Complete</h1>"
      data += "<h3>Elapsed time: " + elapsedTimeSec.to_s + "ms, Total detections: " + count.to_s + ", Detections per second: " + tdps.to_s + "</h3>"  
     render :text => data
   end
 
   def local_array_test
+    data = ''
     test_str = ""
     test_count = 0    
+    start_time = Time.now
     $gls.each{|value|
       d = detect({
           "Host"=>"localhost",
@@ -215,12 +210,19 @@ class HandsetController < ApplicationController
           "Cache-Control"=>"max-age=0",
           "user-agent" => value['user-agent'],
           "x-wap-profile"=> value['x-wap-profile']
-        },server_detect = 0)
-        
+        },server_detect = 0)        
         test_count = test_count + 1
-        test_str = test_str + "User-agent: " + value['user-agent'] + "<br/>" + "profile: " + value['x-wap-profile'] + "<br/><br/>" + "Device Detection Response: " + d.to_s + "<br/>================================================================================================<br/>"
+        #test_str = test_str + "User-agent: " + value['user-agent'] + "<br/>" + "profile: " + value['x-wap-profile'] + "<br/><br/>" + "Device Detection Response: " + d.to_s + "<br/>================================================================================================<br/>"
     }
-    render :text => test_str  + "               Count: " + test_count.to_s
+    #render :text => test_str  + "               Count: " + test_count.to_s
+    end_time = Time.now
+    elapsed_time = (end_time - start_time) * 1000
+    elapsedTimeSec = elapsed_time/1000.to_f
+    dps = test_count / elapsedTimeSec
+    tdps = dps.to_i    
+    data += "<h1>Test Complete</h1>"
+    data += "<h3>Elapsed time: " + elapsedTimeSec.to_s + "ms, Total detections: " + test_count.to_s + ", Detections per second: " + tdps.to_s + "</h3>"  
+    render :text => data
   end
 
   def site_test

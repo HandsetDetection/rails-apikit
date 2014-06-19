@@ -47,7 +47,6 @@ module ActionController
     end
 
     module SingletonMethods
-
     end
 
     module InstanceMethods
@@ -145,10 +144,10 @@ module ActionController
         if File::exists?(Rails.root.to_s + '/public/specs') and File::exists?(Rails.root.to_s + '/public')
           logger.info 'files already exists , just setting up cache'
           @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)          
-          #f1=set_cache_specs_local()
-          f2=set_cache_trees_local()          
+          f1=set_cache_specs_local()
           f3=set_cache_devices_local()
-          return (f1 and f2)
+          f2=set_cache_trees_local()                    
+          return (f1 and f2 and f3)
         else
           logger.info 'files doest exist , loading data from server , writing to files and then setting up cache'
           return update_cache()
@@ -160,9 +159,9 @@ module ActionController
         #@@cache = ActiveSupport::Cache::FileStore.new(Rails.root.to_s + "/tmp/handset_cache_store")
         @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)              
         f1 = set_cache_specs()
-        f2 = set_cache_trees()        
-        #f3 = set_cache_devices()
-        return (f1 and f2)
+        f3 = set_cache_devices()
+        f2 = set_cache_trees()                
+        return (f1 and f2 and f3)
       end
 ########################################################################################################################
  #  private
@@ -491,7 +490,7 @@ module ActionController
       end
 
       def set_cache_devices()      
-        set_cache_devices_local()        
+        return set_cache_devices_local()        
       end
 
       def extract_files()
@@ -508,24 +507,20 @@ module ActionController
       end
 
       def set_cache_devices_local()                   
-        Dir.glob(Rails.root.to_s+'/tmp/files'+"*/*.json") do |filename|          
+        Dir.glob(Rails.root.to_s+'/tmp/files/'+"*.json") do |filename|          
           file = File.new(filename,'r')    
           body = file.read()
-          data = ActiveSupport::JSON.decode body
-          if !data['devices'].nil?
-            data['devices'].each {|device|
-              device_id = device['Device']['_id']
-              device_specs = device['Device']['hd_specs']
-              begin
-                @@cache.write("device" + device_id.to_s,device_specs)
-              rescue
-                logger.info '======================================= ERROR IN SPECS ================================================='
-                logger.info device
-                logger.info id
-                logger.info specs
-              end
-            }
-          end          
+          device = ActiveSupport::JSON.decode body
+          device_id = device['Device']['_id']
+          device_specs = device['Device']['hd_specs']
+          begin
+            @@cache.write("device" + device_id.to_s,device_specs)
+          rescue
+            logger.info '======================================= ERROR IN SPECS ================================================='
+            logger.info device
+            logger.info id
+            logger.info specs
+          end        
         end             
         return true   
       end      
@@ -534,6 +529,7 @@ module ActionController
 	      file = File.new(Rails.root.to_s + '/tmp/specs','r')
         body = file.read()
         data = ActiveSupport::JSON.decode body
+=begin      
 	      if !data['devices'].nil?
 	        data['devices'].each {|device|
             device_id = device['Device']['_id']
@@ -548,6 +544,7 @@ module ActionController
             end
 	        }
 	      end
+=end        
       	if !data['extras'].nil?
 	        data['extras'].each {|extra|
             extra_id = extra['Extra']['_id']
