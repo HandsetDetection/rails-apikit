@@ -144,11 +144,11 @@ module ActionController
         logger.info 'set_cahe'
         if File::exists?(Rails.root.to_s + '/public/specs') and File::exists?(Rails.root.to_s + '/public')
           logger.info 'files already exists , just setting up cache'
-          @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)
-          f3=set_cache_devices_local()
+          @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)          
           #f1=set_cache_specs_local()
           f2=set_cache_trees_local()          
-          return (f3 and f2)
+          f3=set_cache_devices_local()
+          return (f1 and f2)
         else
           logger.info 'files doest exist , loading data from server , writing to files and then setting up cache'
           return update_cache()
@@ -158,11 +158,11 @@ module ActionController
       #
       def update_cache
         #@@cache = ActiveSupport::Cache::FileStore.new(Rails.root.to_s + "/tmp/handset_cache_store")
-        @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)      
-        f3 = set_cache_devices()
-        #f1 = set_cache_specs()
+        @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)              
+        f1 = set_cache_specs()
         f2 = set_cache_trees()        
-        return (f3 and f2)
+        #f3 = set_cache_devices()
+        return (f1 and f2)
       end
 ########################################################################################################################
  #  private
@@ -315,7 +315,7 @@ module ActionController
         #  headers[keys[0].downcase] = keys[1]
         #  headers
         #end
-        headers = Hash[ headers.map { |key, value| [key,value.downcase] } ]
+        headers = Hash[headers.map { |key, value| [key,value.downcase] }]
         if !headers['x-operamini-phone'].nil? #and headers['x-operamini-phone'] != "? # ?")
 	  		  id = matchDevice('x-operamini-phone',headers['x-operamini-phone'])
 			    if id
@@ -526,7 +526,8 @@ module ActionController
               end
             }
           end          
-        end                
+        end             
+        return true   
       end      
       
       def set_cache_specs_local()
@@ -572,9 +573,9 @@ module ActionController
         if data.nil?
           return false
         end
-        #data['trees'].each {|key,branch|
-        #  @@cache.write(key.to_s,branch)
-        #}
+        data['trees'].each {|key,branch|
+          @@cache.write(key.to_s,branch)
+        }
         return true
       end
 

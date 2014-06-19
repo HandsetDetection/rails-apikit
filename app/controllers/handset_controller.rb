@@ -128,6 +128,13 @@ class HandsetController < ApplicationController
     },server_detect = 0)<br/><br/> And then print d.to_s will results like<br/><br/>' + d.to_s
   end
 
+  def my_test
+    Dir.glob(Rails.root.to_s+'/tmp/files'+"*/*.json") do |filename|          
+      file = File.new(filename,'r')    
+      body = file.read()
+    end
+  end
+
   def fetch_trees
     data = siteFetchTrees
     render :text => data
