@@ -80,6 +80,7 @@ class HandsetController < ApplicationController
   end
   
   def site_detect
+    start_time = Time.now
     d = detect({
       "Host"=>"localhost",
       "Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -90,6 +91,9 @@ class HandsetController < ApplicationController
       "user-agent" => "Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)",
       "x-wap-profile"=>"http://wap.sonyericsson.com/UAprof/LT15iR301.xml"
    },server_detect = 1)
+    end_time = Time.now
+    elapsed_time = (end_time - start_time) * 1000
+    elapsedTimeSec = elapsed_time/1000.to_f
     render :text => '<br/>detect method take two arguments , <br/>1st is data header and <br/>2nd is detection method (send 1 for server detection and 0 for local detection , if no argument is passed then server detection is used<br/><br/> d = detect({
       "Host"=>"localhost",
       "Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -100,10 +104,11 @@ class HandsetController < ApplicationController
       "ipaddress"=>"127.0.0.1",
    "user-agent" => "Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)",
       "x-wap-profile"=>"http://wap.sonyericsson.com/UAprof/LT15iR301.xml"
-    },server_detect = 1)<br/><br/> And then print d.to_s will results like<br/><br/>' + d.to_s
+    },server_detect = 1)<br/><br/> And then print d.to_s will results like<br/><br/>' + d.to_s + "<br/><br/>Elapsed Time " + elapsedTimeSec.to_s  
   end
 
   def local_detect
+    start_time = Time.now
     d = detect({
       "Host"=>"localhost",
       "Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -114,6 +119,9 @@ class HandsetController < ApplicationController
       'user-agent' => 'Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)',
       "x-wap-profile"=>'http://wap.sonyericsson.com/UAprof/LT15iR301.xml'
     },server_detect = 0)
+    end_time = Time.now
+    elapsed_time = (end_time - start_time) * 1000
+    elapsedTimeSec = elapsed_time/1000.to_f
     #debugger
     render :text => '<br/>detect method take two arguments , <br/>1st is data header and <br/>2nd is detection method (send 1 for server detection and 0 for local detection , if no argument is passed then server detection is used<br/><br/> d = detect({
       "Host"=>"localhost",
@@ -125,7 +133,7 @@ class HandsetController < ApplicationController
       "ipaddress"=>"127.0.0.1",
       "user-agent" => "Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)",
       "x-wap-profile"=>"http://wap.sonyericsson.com/UAprof/LT15iR301.xml"
-    },server_detect = 0)<br/><br/> And then print d.to_s will results like<br/><br/>' + d.to_s
+    },server_detect = 0)<br/><br/> And then print d.to_s will results like<br/><br/>' + d.to_s + "<br/><br/>Elapsed Time " + elapsedTimeSec.to_s  
   end
 
   def fetch_trees
@@ -179,10 +187,9 @@ class HandsetController < ApplicationController
           "Cache-Control"=>"max-age=0",
           "user-agent" => useragent,
           "x-wap-profile"=> profile
-        },server_detect = 0)                                      
+        },server_detect = 1)                                      
         count += 1        
-        #end
-        data += "<br/>"
+        #end        
       end
      end_time = Time.now
      elapsed_time = (end_time - start_time) * 1000
@@ -213,8 +220,7 @@ class HandsetController < ApplicationController
         },server_detect = 0)        
         test_count = test_count + 1
         #test_str = test_str + "User-agent: " + value['user-agent'] + "<br/>" + "profile: " + value['x-wap-profile'] + "<br/><br/>" + "Device Detection Response: " + d.to_s + "<br/>================================================================================================<br/>"
-    }
-    #render :text => test_str  + "               Count: " + test_count.to_s
+    }    
     end_time = Time.now
     elapsed_time = (end_time - start_time) * 1000
     elapsedTimeSec = elapsed_time/1000.to_f

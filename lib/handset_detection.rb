@@ -141,7 +141,7 @@ module ActionController
       #
       def set_cache
         logger.info 'set_cahe'
-        if File::exists?(Rails.root.to_s + '/public/specs') and File::exists?(Rails.root.to_s + '/public')
+        if File::exists?(Rails.root.to_s + '/tmp/specs')
           logger.info 'files already exists , just setting up cache'
           @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)          
           f1=set_cache_specs_local()
@@ -253,7 +253,7 @@ module ActionController
           if device != false
 
 			browser = Hash.new
-			platform = Hash.new
+			platform = Hash.new   
 			platform_id = getExtra('platform', headers)
 			browser_id = getExtra('browser', headers)
 			if platform_id != false 
@@ -264,7 +264,6 @@ module ActionController
 				browser = @@cache.read("extra"+ browser_id)
 				browser = browser.dup
 			end	
-
 			# Selective merge
 			if !browser.nil?			
 			  #debugger
@@ -526,9 +525,9 @@ module ActionController
       end      
       
       def set_cache_specs_local()
-	      file = File.new(Rails.root.to_s + '/tmp/specs','r')
-        body = file.read()
-        data = ActiveSupport::JSON.decode body
+	      #file = File.new(Rails.root.to_s + '/tmp/specs','r')
+        #body = file.read()
+        #data = ActiveSupport::JSON.decode body
 =begin      
 	      if !data['devices'].nil?
 	        data['devices'].each {|device|
@@ -559,7 +558,6 @@ module ActionController
             end
 	        }
 	      end
-
 	      return true
       end
 #
