@@ -13,10 +13,15 @@ module ActionController
 
     class Configuration
 
-      @@other_options = {'vendors' => '/device/vendors',
-        'models' => '/device/models',
-        'view' => '/device/view',
-        'whathas' => '/device/whathas',
+      @@other_options = {
+          'vendors' => '/device/vendors',
+          'models' => '/device/models',
+          'view' => '/device/view',
+          'whathas' => '/device/whathas',
+          'detect' => '/device/detect',
+          'ultimateFetcharchive' => '/device/fetcharchive',
+          'communityFetcharchive' => '/community/fetcharchive',
+
       }
       unless File.exist?(Rails.root.to_s + '/config/handset_detection.yml')
         raise HandsetDetectionConfigFileNotFoundException.new("File RAILS_ROOT/config/handset_detection.yml not found")
@@ -80,7 +85,14 @@ module ActionController
 		    rep = hd_remote("/site/detect/#{id}.json",data)
         headers,body = rep.split("\r\n\r\n",2)
         return body
-	    end
+      end
+
+      def deviceDetect(data)
+        id = Configuration.get('site_id')
+        rep = hd_remote(Configuration.get('detect') + "/#{id}.json",data)
+        headers,body = rep.split("\r\n\r\n",2)
+        return body
+      end
 #
       def siteFetchTrees
         id = Configuration.get('site_id')
@@ -98,9 +110,23 @@ module ActionController
 
       def siteFetchArchive()
         id = Configuration.get('site_id')        
-        rep = hd_remote("/site/fetcharchive/#{id}.json", "")                
+        rep = hd_remote("/site/fetcharchive/#{id}.json", "")
         File.open(Rails.root.to_s + '/tmp/files/ultimate.zip', 'wb') {|f| f.write(rep)}  
         extract_files()                          
+      end
+
+      def ultimateFetcharchive()
+        id = Configuration.get('site_id')
+        rep = hd_remote(Configuration.get('ultimateFetcharchive') + "/#{id}.json", "")
+        File.open(Rails.root.to_s + '/tmp/files/ultimate.zip', 'wb') {|f| f.write(rep)}
+        extract_files()
+      end
+
+      def communityFetcharchive()
+        id = Configuration.get('site_id')
+        rep = hd_remote(Configuration.get('communityFetcharchive') + "/#{id}.json", "")
+        File.open(Rails.root.to_s + '/tmp/files/ultimate.zip', 'wb') {|f| f.write(rep)}
+        extract_files()
       end
 #
       def detect(data,server_detect=1)
@@ -116,7 +142,7 @@ module ActionController
           end      
         end
         if server_detect == 1
-          return siteDetect(data)
+          return deviceDetect(data)
         elsif server_detect == 0
           resp_data = localSiteDetect(data)
           if resp_data["status"] == 301
@@ -140,16 +166,16 @@ module ActionController
 
       #
       def set_cache
-        logger.info 'set_cahe'
+        Rails::logger.info 'set_cahe'
         if File::exists?(Rails.root.to_s + '/tmp/specs')
-          logger.info 'files already exists , just setting up cache'
+          Rails::logger.info 'files already exists , just setting up cache'
           @@cache ||= ActiveSupport::Cache.lookup_store(:memory_store)          
           f1=set_cache_specs_local()
           f3=set_cache_devices_local()
           f2=set_cache_trees_local()                    
           return (f1 and f2 and f3)
         else
-          logger.info 'files doest exist , loading data from server , writing to files and then setting up cache'
+          Rails::logger.info 'files doest exist , loading data from server , writing to files and then setting up cache'
           return update_cache()
         end
       end
@@ -167,8 +193,8 @@ module ActionController
  #  private
       def hd_remote(suburl, data)
         apiserver =  Configuration.get('apiserver')        
-		    #url = "http://" + apiserver + "/apiv3" + suburl + ".json"        
-        url = "http://" + apiserver + "/apiv3" + suburl
+		    #url = "http://" + apiserver + "/apiv4" + suburl + ".json"
+        url = "http://" + apiserver + "/apiv4" + suburl
         serverip = apiserver
 		    jsondata = data.to_json                
         servers = Socket.gethostbyname(apiserver)        
@@ -184,7 +210,7 @@ module ActionController
       def hd_post(apiserver,serverip,url,jsondata,suburl)        
         username = Configuration.get('username')
         #puts username
-        realm = 'APIv3'
+        realm = 'APIv4'
         secret = Configuration.get('password')
 
 		    port = 80
@@ -195,9 +221,9 @@ module ActionController
 
     		ha1 = Digest::MD5.hexdigest("#{username}:#{realm}:#{secret}")
 
-        ha2 = Digest::MD5.hexdigest("POST:/apiv3/#{suburl}.json")
+        ha2 = Digest::MD5.hexdigest("POST:/apiv4/#{suburl}.json")
 
-    		response = Digest::MD5.hexdigest("#{ha1}:APIv3:#{nc}:#{cnonce}:#{qop}:#{ha2}")
+    		response = Digest::MD5.hexdigest("#{ha1}:APIv4:#{nc}:#{cnonce}:#{qop}:#{ha2}")
 
         if Configuration.get('use_proxy') == 1
           pserver = Configuration.get('proxy_server')
@@ -221,13 +247,13 @@ module ActionController
     	  hd_request = hd_request +  "Content-Type: application/zip\r\n";
 
    		  hd_request = hd_request +  'Authorization: Digest username='
-        hd_request = hd_request + '"' + Configuration.get('username') + '"' + 'realm="APIv3", nonce="APIv3",'
+        hd_request = hd_request + '"' + Configuration.get('username') + '"' + 'realm="APIv4", nonce="APIv4",'
 
-        hd_request = hd_request + "uri=/apiv3/#{suburl}.json, qop=auth, nc=00000001, "
+        hd_request = hd_request + "uri=/apiv4/#{suburl}.json, qop=auth, nc=00000001, "
         hd_request = hd_request + 'cnonce="' + "#{cnonce}" + '", '
         hd_request = hd_request + 'response="' + "#{response}" + '", '
 
-        hd_request = hd_request + 'opaque="APIv3"'
+        hd_request = hd_request + 'opaque="APIv4"'
         hd_request = hd_request + "\r\n"
 		    hd_request = hd_request +  "Content-length: #{jsondata.length}\r\n\r\n"
         hd_request = hd_request +  "#{jsondata}\r\n\r\n"
@@ -387,13 +413,13 @@ module ActionController
 
 	
 	checkOrder.each{|field|
-	logger.info field.include?('x-').to_s  
+	Rails::logger.info field.include?('x-').to_s
 	if !valuearr[field].nil? #and (field == 'user-agent' or field.include?('x-'))
 	    id = matchExtra('user-agent', valuearr[field], cls)
 	    if id 
 		#returned		
 	      return id
-		logger.info "id" + id.to_s		
+		Rails::logger.info "id" + id.to_s
 		#ok
 		
 	    end
@@ -515,10 +541,10 @@ module ActionController
           begin
             @@cache.write("device" + device_id.to_s,device_specs)
           rescue
-            logger.info '======================================= ERROR IN SPECS ================================================='
-            logger.info device
-            logger.info id
-            logger.info specs
+            Rails::logger.info '======================================= ERROR IN SPECS ================================================='
+            Rails::logger.info device
+            Rails::logger.info id
+            Rails::logger.info specs
           end        
         end             
         return true   
@@ -551,10 +577,10 @@ module ActionController
             begin
               @@cache.write("extra" + extra_id.to_s,extra_specs)
             rescue
-              logger.info '======================================= ERROR IN SPECS ================================================='
-              logger.info device
-              logger.info id
-              logger.info specs
+              Rails::logger.info '======================================= ERROR IN SPECS ================================================='
+              Rails::logger.info device
+              Rails::logger.info id
+              Rails::logger.info specs
             end
 	        }
 	      end

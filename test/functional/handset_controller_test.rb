@@ -69,8 +69,8 @@ class HandsetControllerTest < ActionController::TestCase
 		@model = JSON.parse(deviceModels('Sagem'))
 		@deviceView = JSON.parse(deviceView("Nokia","N95"))
 		@devicewWhatHas = JSON.parse(deviceWhatHas('network', 'CDMA'))
-		@fetchTrees = JSON.parse(siteFetchTrees())
-		@fetchSpecs = JSON.parse(siteFetchSpecs)		
+		#@fetchTrees = JSON.parse(siteFetchTrees())
+		#@fetchSpecs = JSON.parse(siteFetchSpecs())
 
 		Rails::logger.debug
 	end
@@ -83,7 +83,7 @@ class HandsetControllerTest < ActionController::TestCase
 		@deviceView = nil
 		@devicewWhatHas = nil
 		@fetchTrees = nil
-		@fetchSpecs = nil		
+		@fetchSpecs = nil
 	end
 
 	# test username
@@ -127,7 +127,7 @@ class HandsetControllerTest < ActionController::TestCase
 	   	},server_detect = 1)
 		_data = JSON.parse(d.to_s)
 		assert_not_nil(_data)
-		assert_equal(header d["user-agent"])
+		assert_equal(header, d["user-agent"])
 		assert_equal(profile, d["x-wap-profile"])		
 	end
 
@@ -139,11 +139,10 @@ class HandsetControllerTest < ActionController::TestCase
 		assert_not_nil(vendors)
 	end
 
-	def deviceVendors(local, proxy)
-		_vendors = ["Apple", "Sony", "Samsung", "Nokia", "LG", "HTC", "Karbonn"]
-		Configuration.get('use_proxy')
-
-	end
+#	def deviceVendors(local, proxy)
+#		_vendors = ["Apple", "Sony", "Samsung", "Nokia", "LG", "HTC", "Karbonn"]
+#		Configuration.get('use_proxy')
+#	end
 	
 	def test_deviceVendorsPass()
 		_vendor = @vendor	
@@ -205,8 +204,8 @@ class HandsetControllerTest < ActionController::TestCase
 		assert_equal("Samsung", _devicewWhatHas["devices"][0]["general_vendor"].to_s)		
 		assert_equal("LG", _devicewWhatHas["devices"][1]["general_vendor"])		
 	end
-	
-	def test_siteDetect()
+
+	def test_deviceDetect()
 		d = detect({
 	      "Host"=>"localhost",
 	      "Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -235,38 +234,48 @@ class HandsetControllerTest < ActionController::TestCase
 	      "Cache-Control"=>"max-age=0",
 	      'user-agent' => 'Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)',
 	      "x-wap-profile"=>'http://wap.sonyericsson.com/UAprof/LT15iR301.xml'
-	    },server_detect = 0)	   
-	    _data = JSON.parse(d.to_s)	    
-	    assert_nil(_data)	    
+	    },server_detect = 0)
+	    _data = JSON.parse(d.to_s)
+	    assert_nil(_data)
 	end
 
+	def test_ultimateFetcharchive()
+		result = ultimateFetcharchive()
+		assert_equal(true, result)
+	end
+
+	def test_communityFetcharchive()
+		result = communityFetcharchive()
+		assert_equal(true, result)
+	end
+=begin
 	def test_siteFetchTrees()
-		_data = @fetchTrees		
-		assert_not_nil(_data)		
+		_data = @fetchTrees
+		assert_not_nil(_data)
 	end
 
 	def test_siteFetchSpecs()
-		_data = @fetchSpecs		
-		assert_not_nil(_data)		
+		_data = @fetchSpecs
+		assert_not_nil(_data)
 	end
 
 	def test_UltimateFetchTrees()
 		reply = @fetchTrees
 		assert_equal(true, reply)
-		assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/hd3trees.json'))
+		assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/hd3trees.json')))
 		filenames = ["user-agent0.json", "user-agent1.json", "user-angetplatform.json", "user-agentbrowser.json", "profile0.json"]
-		filename.each { |f| 
-			assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/', f))
+		filename.each { |f|
+			assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/', f)))
 		}
 	end
 
 	def test_UltimateFetchSpecs
 		reply = @fetchSpecs
 		assert_equal(true, reply)
-		assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/hd3specs.json'))
+		assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/hd3specs.json')))
 		filenames = ["Device_10.json", "Extra_546.json", "Device_46142.json", "Extra_9.json", "Extra_102.json", "user-agent0.json", "user-agent1.json", "user-agentplatform.json", "user-agentbrowser.json", "profile0.json"]
 		filename.each { |f| 
-			assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/', f))
+			assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/', f)))
 		}
 	end
 
@@ -281,11 +290,11 @@ class HandsetControllerTest < ActionController::TestCase
 
 	def test_UltimateFetchArchive		
 		filenames = ["Device_10.json", "Extra_546.json", "Device_46142.json", "Extra_9.json", "Extra_102.json", "user-agent0.json", "user-agent1.json", "user-agentplatform.json", "user-agentbrowser.json", "profile0.json"]
-		filename.each { |f| 
-			assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/', f))
+		filenames.each { |f|
+			assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/', f)))
 		}
 		content = data = File.read(Rails.root.to_s + '/tmp/files/device_10.json')
 		assert_equal(@Device_10, content)
 	end
-
+=end
 end

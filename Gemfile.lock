@@ -107,6 +107,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
+  execjs
   jquery-rails
   json
   rails (= 3.2.4.rc1)
@@ -115,3 +116,6 @@ DEPENDENCIES
   sqlite3
   uglifier (>= 1.0.3)
   yajl-ruby
+
+BUNDLED WITH
+   1.10.6
