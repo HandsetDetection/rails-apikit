@@ -595,7 +595,7 @@ class HandsetControllerTest < ActionController::TestCase
 		assert_equal('Lumia 1020', reply['hd_specs']['general_model'])
 		assert_equal('Windows Phone', reply['hd_specs']['general_platform'])
 		assert_equal('Mobile', reply['hd_specs']['general_type'])
-		assert_equal('332', reply['hd_specs']['display_ppi'])
+		assert_equal(332, reply['hd_specs']['display_ppi'])
 	end
 
 	def test_ultimate_community_fetchArchive()
