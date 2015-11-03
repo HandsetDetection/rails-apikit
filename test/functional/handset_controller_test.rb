@@ -9,7 +9,9 @@ class HandsetControllerTest < ActionController::TestCase
 	include ActionController::HandsetDetection
 	include ActionController::HandsetDetection::SingletonMethods
 	include ActionController::HandsetDetection::InstanceMethods	
-	
+
+	@@fetched = 0
+
 	# initialize first setup objects
 	def setup		
 		@notFoundHeaders = ['Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; GTB7.1; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; InfoPath.2; .NET CLR 3.5.30729; .NET4.0C; .NET CLR 3.0.30729; AskTbFWV5/5.12.2.16749; 978803803','Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.2.22) Gecko/20110902 Firefox/3.6.22 ( .NET CLR 3.5.30729) Swapper 1.0.4','Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; Sky Broadband; GTB7.1; SeekmoToolbar 4.8.4; Sky Broadband; Sky Broadband; AskTbBLPV5/5.9.1.14019)']
@@ -88,11 +90,41 @@ class HandsetControllerTest < ActionController::TestCase
 		@fetchSpecs = nil
 	end
 
+	def setup_cloudConfig()
+		Configuration.set("username", "")
+		Configuration.set("password", "")
+		Configuration.set("site_id", "")
+		Configuration.set("server_detect", "1")
+	end
+
+	def setup_ultimateConfig()
+		Configuration.set("username", "")
+		Configuration.set("password", "")
+		Configuration.set("site_id", "")
+		Configuration.set("server_detect", 0)
+		if (@@fetched != 1)
+			test_fetchArchive()
+			@@fetched = 1
+		end
+	end
+
+	def setup_ultimateCommunityConfig()
+		Configuration.set("username", "")
+		Configuration.set("password", "")
+		Configuration.set("site_id", "")
+		Configuration.set("server_detect", 0)
+		if (@@fetched != 2)
+			test_ultimate_community_fetchArchive()
+			@@fetched = 2
+		end
+	end
+
 	def test_cloudConfigExists()
 		assert_equal(true, true)
 	end
 
 	def test_deviceVendors()
+		setup_cloudConfig()
 		reply = JSON.parse(deviceVendors())
 		assert_not_nil(reply)
 		check_reply_isok(reply)
@@ -101,6 +133,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceModels()
+		setup_cloudConfig()
 		reply = JSON.parse(deviceModels('Nokia'))
 		assert_not_nil(reply)
 		assert(reply['model'].count > 700)
@@ -109,6 +142,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceView()
+		setup_cloudConfig()
 		reply = JSON.parse(deviceView('Nokia', 'N95'))
 		assert_not_nil(reply)
 		check_reply_isok(reply)
@@ -116,6 +150,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDeviceWhatHas()
+		setup_cloudConfig()
 		reply = JSON.parse(deviceWhatHas('design_dimensions', '101 x 44 x 16'))
 		assert_not_nil(reply)
 		check_reply_isok(reply)
@@ -130,6 +165,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectHTTPDesktop()
+		setup_cloudConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
 
@@ -140,6 +176,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectHTTPDesktopJunk()
+		setup_cloudConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'aksjakdjkjdaiwdidjkjdkawjdijwidawjdiajwdkawdjiwjdiawjdwidjwakdjajdkad' + Time.new().to_s
 
@@ -150,6 +187,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectHTTPWii()
+		setup_cloudConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Opera/9.30 (Nintendo Wii; U; ; 2047-7; es-Es)'
 
@@ -160,6 +198,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectHTTP()
+		setup_cloudConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 
@@ -179,7 +218,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectHTTPOtherHeader()
-
+		setup_cloudConfig()
 		headers = Hash.new
 		headers['user-agent'] = 'blahblahblah'
 		headers['x-fish-header'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
@@ -201,6 +240,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectHTTPHardwareInfo()
+		setup_cloudConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 		headers['x-local-hardwareinfo'] = '320:480:100:100'
@@ -221,6 +261,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectHTTPHardwareInfoB()
+		setup_cloudConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 		headers['x-local-hardwareinfo'] = '320:480:100:72'
@@ -241,6 +282,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectHTTPHardwareInfoC()
+		setup_cloudConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 2_0 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 		headers['x-local-hardwareinfo'] = '320:480:200:1200'
@@ -261,6 +303,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectHTTPFBiOS()
+		setup_cloudConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D201 [FBAN/FBIOS;FBAV/9.0.0.25.31;FBBV/2102024;FBDV/iPhone6,2;FBMD/iPhone;FBSN/iPhone OS;FBSV/7.1.1;FBSS/2; FBCR/vodafoneIE;FBID/phone;FBLC/en_US;FBOP/5]'
 		headers['Accept-Language'] = 'da, en-gb;q=0.8, en;q=0.7'
@@ -287,6 +330,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectBIAndroid()
+		setup_cloudConfig()
 		buildInfo = Hash.new
 		buildInfo['ro.build.PDA'] = 'I9500XXUFNE7'
 		buildInfo['ro.build.changelist'] = '699287'
@@ -329,6 +373,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectBIiOS()
+		setup_cloudConfig()
 		buildInfo = Hash.new
 		buildInfo['utsname.machine'] = 'iphone4,1',
 		buildInfo['utsname.brand'] = 'Apple'
@@ -342,6 +387,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_deviceDetectWindowsPhone()
+		setup_cloudConfig()
 		buildInfo = Hash.new
 		buildInfo['devicemanufacturer'] = 'nokia'
 		buildInfo['devicename'] = 'RM-875'
@@ -355,11 +401,12 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_fetchArchive()
-		#result = ultimateFetcharchive()
-		#assert(result)
+		result = ultimateFetcharchive()
+		assert(result)
 	end
 
 	def test_ultimate_deviceVendors()
+		setup_ultimateConfig()
 		reply = JSON.parse(deviceVendors())
 		assert_not_nil(reply)
 		check_reply_isok(reply)
@@ -368,6 +415,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceModels()
+		setup_ultimateConfig()
 		reply = JSON.parse(deviceModels('Nokia'))
 		assert_not_nil(reply)
 		check_reply_isok(reply)
@@ -375,6 +423,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceView()
+		setup_ultimateConfig()
 		reply = JSON.parse(deviceView('Nokia', 'N9'))
 		assert_not_nil(reply)
 		check_reply_isok(reply)
@@ -382,6 +431,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDeviceWhatHas()
+		setup_ultimateConfig()
 		reply = JSON.parse(deviceWhatHas('design_dimensions', '101 x 44 x 16'))
 		assert_not_nil(reply)
 		check_reply_isok(reply)
@@ -395,6 +445,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectHTTPDesktop()
+		setup_ultimateConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
 		reply = JSON.parse(detect(headers))
@@ -404,6 +455,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectHTTPDesktopJunk()
+		setup_ultimateConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'aksjakdjkjdaiwdidjkjdkawjdijwidawjdiajwdkawdjiwjdiawjdwidjwakdjajdkad'
 		reply = JSON.parse(detect(headers))
@@ -413,6 +465,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectHTTPWii()
+		setup_ultimateConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Opera/9.30 (Nintendo Wii; U; ; 2047-7; es-Es)'
 		reply = JSON.parse(detect(headers))
@@ -422,6 +475,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectHTTP()
+		setup_ultimateConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 		reply = JSON.parse(detect(headers))
@@ -441,6 +495,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectHTTPOtherHeader()
+		setup_ultimateConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'blahblahblah'
 		headers['x-fish-header'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
@@ -461,6 +516,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectHTTPHardwareInfo()
+		setup_ultimateConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 		headers['x-local-hardwareinfo'] = '320:480:100:100'
@@ -480,6 +536,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectHTTPHardwareInfoB()
+		setup_ultimateConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 		headers['x-local-hardwareinfo'] = '320:480:100:72'
@@ -499,6 +556,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectHTTPHardwareInfoC()
+		setup_ultimateConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 2_0 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 		headers['x-local-hardwareinfo'] = '320:480:200:1200'
@@ -518,6 +576,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectHTTPFBiOS()
+		setup_ultimateConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D201 [FBAN/FBIOS;FBAV/9.0.0.25.31;FBBV/2102024;FBDV/iPhone6,2;FBMD/iPhone;FBSN/iPhone OS;FBSV/7.1.1;FBSS/2; FBCR/vodafoneIE;FBID/phone;FBLC/en_US;FBOP/5]'
 		headers['Accept-Language'] = 'da, en-gb;q=0.8, en;q=0.7'
@@ -543,6 +602,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectBIAndroid()
+		setup_ultimateConfig()
 		buildInfo = Hash.new
 		buildInfo['ro.build.PDA'] = 'I9500XXUFNE7'
 		buildInfo['ro.build.changelist'] = '699287'
@@ -584,6 +644,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectBIiOS()
+		setup_ultimateConfig()
 		buildInfo = Hash.new
 		buildInfo['utsname.machine'] = 'iphone4,1'
 		buildInfo['utsname.brand'] = 'Apple'
@@ -597,6 +658,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_deviceDetectWindowsPhone()
+		setup_ultimateConfig()
 		buildInfo = Hash.new
 		buildInfo['devicemanufacturer'] = 'nokia'
 		buildInfo['devicename'] = 'RM-875'
@@ -610,11 +672,12 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_fetchArchive()
-		#result = communityFetcharchive()
-		#assert(result)
+		result = communityFetcharchive()
+		assert(result)
 	end
 
 	def test_ultimate_community_deviceDetectHTTPDesktop()
+		setup_ultimateCommunityConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
 		reply = JSON.parse(detect(headers))
@@ -624,6 +687,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_deviceDetectHTTPDesktopJunk()
+		setup_ultimateCommunityConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'aksjakdjkjdaiwdidjkjdkawjdijwidawjdiajwdkawdjiwjdiawjdwidjwakdjajdkad'
 		reply = JSON.parse(detect(headers))
@@ -633,6 +697,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_deviceDetectHTTPWii()
+		setup_ultimateCommunityConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Opera/9.30 (Nintendo Wii; U; ; 2047-7; es-Es)'
 		reply = JSON.parse(detect(headers))
@@ -642,6 +707,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_deviceDetectHTTP()
+		setup_ultimateCommunityConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 		reply = JSON.parse(detect(headers))
@@ -661,6 +727,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_deviceDetectHTTPOtherHeader()
+		setup_ultimateCommunityConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'blahblahblah'
 		headers['x-fish-header'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
@@ -681,6 +748,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_deviceDetectHTTPHardwareInfo()
+		setup_ultimateCommunityConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 		headers['x-local-hardwareinfo'] = '320:480:100:100'
@@ -700,6 +768,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_deviceDetectHTTPHardwareInfoB()
+		setup_ultimateCommunityConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 		headers['x-local-hardwareinfo'] = '320:480:100:72'
@@ -719,6 +788,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_deviceDetectHTTPHardwareInfoC()
+		setup_ultimateCommunityConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 2_0 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
 		headers['x-local-hardwareinfo'] = '320:480:200:1200'
@@ -738,6 +808,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_deviceDetectHTTPFBiOS()
+		setup_ultimateCommunityConfig()
 		headers = Hash.new
 		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D201 [FBAN/FBIOS;FBAV/9.0.0.25.31;FBBV/2102024;FBDV/iPhone6,2;FBMD/iPhone;FBSN/iPhone OS;FBSV/7.1.1;FBSS/2; FBCR/vodafoneIE;FBID/phone;FBLC/en_US;FBOP/5]'
 		headers['Accept-Language'] = 'da, en-gb;q=0.8, en;q=0.7'
@@ -763,6 +834,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_deviceDetectBIAndroid()
+		setup_ultimateCommunityConfig()
 		buildInfo = Hash.new
 		buildInfo['ro.build.PDA'] = 'I9500XXUFNE7'
 		buildInfo['ro.build.changelist'] = '699287'
@@ -804,6 +876,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_deviceDetectBIiOS()
+		setup_ultimateCommunityConfig()
 		buildInfo = Hash.new
 		buildInfo['utsname.machine'] = 'iphone4,1'
 		buildInfo['utsname.brand'] = 'Apple'
@@ -817,6 +890,7 @@ class HandsetControllerTest < ActionController::TestCase
 	end
 
 	def test_ultimate_community_deviceDetectWindowsPhone()
+		setup_ultimateCommunityConfig()
 		buildInfo = Hash.new
 		buildInfo['devicemanufacturer'] = 'nokia'
 		buildInfo['devicename'] = 'RM-875'

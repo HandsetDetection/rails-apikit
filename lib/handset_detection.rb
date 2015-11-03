@@ -853,7 +853,7 @@ module ActionController
           if data['user-agent'].match(non_mobile) != nil
             reply["status"] = 301
             reply["message"] = "FastFail : Probable bot, spider or script"
-            return reply
+            return JSON.generate(reply)
           end      
         end
         server_detect = Configuration.get('server_detect')
@@ -861,11 +861,11 @@ module ActionController
           return deviceDetect(data)
         elsif server_detect == 0
           resp_data = localDetect(data)
-          return resp_data
+          return JSON.generate(resp_data)
         else
           reply["class"] = "unknown"
           reply['message']="Invalid detection method selected , use 1 for server detection and 0 for local detection"
-          return reply
+          return JSON.generate(reply)
         end
       end
 
