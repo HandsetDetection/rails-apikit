@@ -7,8 +7,11 @@ run command: ruby -I test test/functional/handset_controller_test.rb
 =end
 class HandsetControllerTest < ActionController::TestCase
 	include ActionController::HandsetDetection
+	include ActionController::HandsetDetection::SingletonMethods
 	include ActionController::HandsetDetection::InstanceMethods	
-	
+
+	@@fetched = 0
+
 	# initialize first setup objects
 	def setup		
 		@notFoundHeaders = ['Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; GTB7.1; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; InfoPath.2; .NET CLR 3.5.30729; .NET4.0C; .NET CLR 3.0.30729; AskTbFWV5/5.12.2.16749; 978803803','Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.2.22) Gecko/20110902 Firefox/3.6.22 ( .NET CLR 3.5.30729) Swapper 1.0.4','Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; Sky Broadband; GTB7.1; SeekmoToolbar 4.8.4; Sky Broadband; Sky Broadband; AskTbBLPV5/5.9.1.14019)']
@@ -43,7 +46,8 @@ class HandsetControllerTest < ActionController::TestCase
 		@h7['user-agent'] = 'Mozilla/5.0 (Linux; U; Android 2.1-update1; cs-cz; SonyEricssonX10i Build/2.1.B.0.1) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17'
 		@h7['match'] = 'SonyEricssonX10I'
 
-		@nokiaN95 = '{"general_vendor":"Nokia","general_model":"N95","general_platform":"Symbian","general_platform_version":"9.2","general_browser":"","general_browser_version":"","general_image":"nokian95-1403496370-0.gif","general_aliases":[],"general_eusar":"0.50","general_battery":["Li-Ion 950 mAh","BL-5F"],"general_type":"Mobile","general_cpu":["Dual ARM 11","332Mhz"],"design_formfactor":"Dual Slide","design_dimensions":"99 x 53 x 21","design_weight":"120","design_antenna":"Internal","design_keyboard":"Numeric","design_softkeys":"2","design_sidekeys":["Volume","Camera"],"display_type":"TFT","display_color":"Yes","display_colors":"16M","display_size":"2.6\"","display_x":"240","display_y":"320","display_other":[],"memory_internal":["160MB","64MB RAM","256MB ROM"],"memory_slot":["microSD","8GB","128MB"],"network":["GSM850","GSM900","GSM1800","GSM1900","UMTS2100","HSDPA2100","Infrared port","Bluetooth 2.0","802.11b","802.11g","GPRS Class 10","EDGE Class 32"],"media_camera":["5MP","2592x1944"],"media_secondcamera":["QVGA"],"media_videocapture":["VGA@30fps"],"media_videoplayback":["MPEG4","H.263","H.264","3GPP","RealVideo 8","RealVideo 9","RealVideo 10"],"media_audio":["MP3","AAC","AAC+","eAAC+","WMA"],"media_other":["Auto focus","Video stabilizer","Video calling","Carl Zeiss optics","LED Flash"],"features":["Unlimited entries","Multiple numbers per contact","Picture ID","Ring ID","Calendar","Alarm","To-Do","Document viewer","Calculator","Notes","UPnP","Computer sync","VoIP","Music ringtones (MP3)","Vibration","Phone profiles","Speakerphone","Accelerometer","Voice dialing","Voice commands","Voice recording","Push-to-Talk","SMS","MMS","Email","Instant Messaging","Stereo FM radio","Visual radio","Dual slide design","Organizer","Word viewer","Excel viewer","PowerPoint viewer","PDF viewer","Predictive text input","Push to talk","Voice memo","Games"],"connectors":["USB","miniUSB","3.5mm Headphone","TV Out"]}'
+		@nokiaN95 = "{\"general_vendor\":\"Nokia\",\"general_model\":\"N95\",\"general_platform\":\"Symbian\",\"general_platform_version\":\"9.2\",\"general_browser\":\"\",\"general_browser_version\":\"\",\"general_image\":\"nokian95-1403496370-0.gif\",\"general_aliases\":[],\"general_eusar\":\"0.50\",\"general_battery\":[\"Li-Ion 950 mAh\",\"BL-5F\"],\"general_type\":\"Mobile\",\"general_cpu\":[\"Dual ARM 11\",\"332MHz\"],\"design_formfactor\":\"Dual Slide\",\"design_dimensions\":\"99 x 53 x 21\",\"design_weight\":\"120\",\"design_antenna\":\"Internal\",\"design_keyboard\":\"Numeric\",\"design_softkeys\":\"2\",\"design_sidekeys\":[\"Volume\",\"Camera\"],\"display_type\":\"TFT\",\"display_color\":\"Yes\",\"display_colors\":\"16M\",\"display_size\":\"2.6\\\"\",\"display_x\":\"240\",\"display_y\":\"320\",\"display_other\":[],\"memory_internal\":[\"160MB\",\"64MB RAM\",\"256MB ROM\"],\"memory_slot\":[\"microSD\",\"8GB\",\"128MB\"],\"network\":[\"GSM850\",\"GSM900\",\"GSM1800\",\"GSM1900\",\"UMTS2100\",\"HSDPA2100\",\"Infrared\",\"Bluetooth 2.0\",\"802.11b\",\"802.11g\",\"GPRS Class 10\",\"EDGE Class 32\"],\"media_camera\":[\"5MP\",\"2592x1944\"],\"media_secondcamera\":[\"QVGA\"],\"media_videocapture\":[\"VGA@30fps\"],\"media_videoplayback\":[\"MPEG4\",\"H.263\",\"H.264\",\"3GPP\",\"RealVideo 8\",\"RealVideo 9\",\"RealVideo 10\"],\"media_audio\":[\"MP3\",\"AAC\",\"AAC+\",\"eAAC+\",\"WMA\"],\"media_other\":[\"Auto focus\",\"Video stabilizer\",\"Video calling\",\"Carl Zeiss optics\",\"LED Flash\"],\"features\":[\"Unlimited entries\",\"Multiple numbers per contact\",\"Picture ID\",\"Ring ID\",\"Calendar\",\"Alarm\",\"To-Do\",\"Document viewer\",\"Calculator\",\"Notes\",\"UPnP\",\"Computer sync\",\"VoIP\",\"Music ringtones (MP3)\",\"Vibration\",\"Phone profiles\",\"Speakerphone\",\"Accelerometer\",\"Voice dialing\",\"Voice commands\",\"Voice recording\",\"Push-to-Talk\",\"SMS\",\"MMS\",\"Email\",\"Instant Messaging\",\"Stereo FM radio\",\"Visual radio\",\"Dual slide design\",\"Organizer\",\"Word viewer\",\"Excel viewer\",\"PowerPoint viewer\",\"PDF viewer\",\"Predictive text input\",\"Push to talk\",\"Voice memo\",\"Games\"],\"connectors\":[\"USB\",\"MiniUSB\",\"3.5mm Audio\",\"TV Out\"],\"general_platform_version_max\":\"\",\"general_app\":\"\",\"general_app_version\":\"\",\"general_language\":\"\",\"display_ppi\":154,\"display_pixel_ratio\":\"1.0\",\"benchmark_min\":0,\"benchmark_max\":0,\"general_app_category\":\"\"}"
+		@nokiaN9 = "{\"general_vendor\":\"nokia\",\"general_model\":\"n9\",\"general_platform\":\"meego\",\"general_platform_version\":\"1.2\",\"general_browser\":\"\",\"general_browser_version\":\"\",\"general_image\":\"\",\"general_aliases\":[\"nokia n9-00\",\"nokia n9 lankku\"],\"general_eusar\":\"1.16\",\"general_battery\":[\"li-ion 1450 mah\",\"bv-5jw\"],\"general_type\":\"mobile\",\"general_cpu\":[\"1.0ghz\"],\"design_formfactor\":\"bar\",\"design_dimensions\":\"116.45 x 61.2 x 12.1\",\"design_weight\":\"135\",\"design_antenna\":\"internal\",\"design_keyboard\":\"screen\",\"design_softkeys\":\"\",\"design_sidekeys\":[\"volume\",\"lock\"],\"display_type\":\"amoled\",\"display_color\":\"yes\",\"display_colors\":\"16m\",\"display_size\":\"3.9\\\"\",\"display_x\":\"480\",\"display_y\":\"854\",\"display_other\":[\"capacitive\",\"touch\",\"multitouch\",\"gorilla glass\"],\"memory_internal\":[\"16gb\",\"64gb\",\"1gb ram\"],\"memory_slot\":[],\"network\":[\"gsm850\",\"gsm900\",\"gsm1800\",\"gsm1900\",\"umts850\",\"umts900\",\"umts1700\",\"umts2100\",\"umts1900\",\"hsdpa850\",\"hsdpa900\",\"hsdpa1700\",\"hsdpa1900\",\"hsdpa2100\",\"nfc\",\"bluetooth 2.1\",\"802.11a\",\"802.11b\",\"802.11g\",\"802.11n\",\"gprs class 33\",\"edge class 33\"],\"media_camera\":[\"8mp\",\"3264x2448\"],\"media_secondcamera\":[\"yes\"],\"media_videocapture\":[\"720p@30fps\"],\"media_videoplayback\":[\"mpeg4\",\"h.263\",\"h.264\",\"xvid\",\"wmv\",\"avi\",\"3gpp\",\"flash video\"],\"media_audio\":[\"mp3\",\"aac\",\"eaac\",\"aac+\",\"eaac+\",\"flac\",\"wma\",\"wav\",\"m4a\",\"amr\",\"ogg\"],\"media_other\":[\"auto focus\",\"face detection\",\"exposure control\",\"white balance\",\"digital zoom\",\"geo-tagging\",\"continuous autofocus in a video\",\"video calling\",\"carl zeiss optics\",\"touch focus\",\"dual led flash\"],\"features\":[\"unlimited entries\",\"caller groups\",\"multiple numbers per contact\",\"search by both first and last name\",\"picture id\",\"ring id\",\"calendar\",\"alarm\",\"to-do\",\"document viewer\",\"office 2007 viewer\",\"office 2003 viewer\",\"pdf viewer\",\"other\",\"open document viewer\",\"calculator\",\"mass storage device\",\"usb charging\",\"computer sync\",\"ota sync\",\"music ringtones (mp3)\",\"polyphonic ringtones\",\"vibration\",\"flight mode\",\"silent mode\",\"speakerphone\",\"accelerometer\",\"compass\",\"voice recording\",\"light sensor\",\"proximity sensor\",\"sms\",\"threaded viewer\",\"mms\",\"email\",\"push email\",\"im\",\"microsim card support only\",\"sns integration\",\"active noise cancellation with dedicated mic\",\"dolby digital plus\",\"word viewer\",\"excel viewer\",\"powerpoint viewer\",\"video/photo editor\",\"voice memo\",\"voice command\",\"voice dialing\",\"predictive text input (swype)\",\"games\"],\"connectors\":[\"usb 2.0\",\"microusb\",\"3.5mm audio\",\"tv out\"],\"general_language\":\"\",\"general_platform_version_max\":\"\",\"general_app\":\"\",\"general_app_version\":\"\",\"display_ppi\":251,\"display_pixel_ratio\":\"1.0\",\"benchmark_min\":0,\"benchmark_max\":0,\"general_app_category\":\"\"}"
 		@AlcatelOT_908222 = '{"general_vendor":"Alcatel","general_model":"OT-908","general_platform":"Android","general_platform_version":"2.2","general_browser":"","general_browser_version":"","general_image":"","general_aliases":["Alcatel One Touch 908"],"general_eusar":"","general_battery":["Li-Ion 1300 mAh"],"general_type":"Mobile","general_cpu":["600Mhz"],"design_formfactor":"Bar","design_dimensions":"110 x 57.4 x 12.4","design_weight":"120","design_antenna":"Internal","design_keyboard":"Screen","design_softkeys":"","design_sidekeys":["Lock/Unlock","Volume"],"display_type":"TFT","display_color":"Yes","display_colors":"262K","display_size":"2.8\"","display_x":"240","display_y":"320","display_other":["Capacitive","Touch","Multitouch"],"memory_internal":["150MB"],"memory_slot":["microSD","microSDHC","32GB","2GB"],"network":["GSM850","GSM900","GSM1800","GSM1900","UMTS900","UMTS2100","HSDPA900","HSDPA2100","Bluetooth 3.0","802.11b","802.11g","802.11n","GPRS Class 12","EDGE Class 12"],"media_camera":["2MP","1600x1200"],"media_secondcamera":[],"media_videocapture":["Yes"],"media_videoplayback":["MPEG4","H.263","H.264"],"media_audio":["MP3","AAC","AAC+","WMA"],"media_other":["Geo-tagging"],"features":["Unlimited entries","Caller groups","Multiple numbers per contact","Search by both first and last name","Picture ID","Ring ID","Calendar","Alarm","Calculator","Computer sync","OTA sync","Music ringtones (MP3)","Polyphonic ringtones (64 voices)","Vibration","Flight mode","Silent mode","Speakerphone","Accelerometer","Compass","Voice recording","SMS","MMS","Email","Push Email","IM","Stereo FM radio with RDS","SNS integration","Google Search","Maps","Gmail","YouTube","Google Talk","Picasa integration","Organizer","Document viewer","Voice memo","Voice dialing","Predictive text input","Games"],"connectors":["USB 2.0","microUSB","3.5mm Headphone"],"general_language":""}'
 		@SamsungSCH_M828C = '{"general_vendor":"Samsung","general_model":"SCH-M828C","general_platform":"Android","general_platform_version":"2.2","general_browser":"","general_browser_version":"","general_image":"samsungsch-m828c-1355919519-0.jpg","general_aliases":["Samsung Galaxy Prevail","Samsung Galaxy Precedent"],"general_eusar":"","general_battery":["Li-Ion 1500 mAh"],"general_type":"Mobile","general_cpu":["800Mhz"],"design_formfactor":"Bar","design_dimensions":"113 x 57 x 12","design_weight":"108","design_antenna":"Internal","design_keyboard":"Screen","design_softkeys":"","design_sidekeys":[],"display_type":"TFT","display_color":"Yes","display_colors":"262K","display_size":"3.2\"","display_x":"320","display_y":"480","display_other":["Capacitive","Touch","Multitouch","Touch Buttons"],"memory_internal":["117MB"],"memory_slot":["microSD","microSDHC","32GB","2GB"],"network":["CDMA800","CDMA1900","Bluetooth 3.0"],"media_camera":["2MP","1600x1200"],"media_secondcamera":[],"media_videocapture":["QVGA"],"media_videoplayback":["MP3","WAV","eAAC+"],"media_audio":["MP4","H.264","H.263"],"media_other":["Geo-tagging"],"features":["Unlimited entries","Caller groups","Multiple numbers per contact","Search by both first and last name","Picture ID","Ring ID","Calendar","Alarm","Document viewer","Calculator","Computer sync","OTA sync","Music ringtones (MP3)","Polyphonic ringtones","Vibration","Flight mode","Silent mode","Speakerphone","Accelerometer","Voice dialing","Voice recording","SMS","Threaded viewer","MMS","Email","Push Email","IM","Organizer","Google Search","Maps","Gmail","YouTube","Google Talk","Picasa integration","Voice memo","Predictive text input (Swype)","Games"],"connectors":["USB","microUSB","3.5mm Headphone"],"general_language":""}'
 		@AlcatelOT_90822 = '{"general_vendor":"Alcatel","general_model":"OT-908","general_platform":"Android","general_platform_version":"2.2","general_browser":"","general_browser_version":"","general_image":"","general_aliases":["Alcatel One Touch 908"],"general_eusar":"","general_battery":["Li-Ion 1300 mAh"],"general_type":"Mobile","general_cpu":["600Mhz"],"design_formfactor":"Bar","design_dimensions":"110 x 57.4 x 12.4","design_weight":"120","design_antenna":"Internal","design_keyboard":"Screen","design_softkeys":"","design_sidekeys":["Lock/Unlock","Volume"],"display_type":"TFT","display_color":"Yes","display_colors":"262K","display_size":"2.8\"","display_x":"240","display_y":"320","display_other":["Capacitive","Touch","Multitouch"],"memory_internal":["150MB"],"memory_slot":["microSD","microSDHC","32GB","2GB"],"network":["GSM850","GSM900","GSM1800","GSM1900","UMTS900","UMTS2100","HSDPA900","HSDPA2100","Bluetooth 3.0","802.11b","802.11g","802.11n","GPRS Class 12","EDGE Class 12"],"media_camera":["2MP","1600x1200"],"media_secondcamera":[],"media_videocapture":["Yes"],"media_videoplayback":["MPEG4","H.263","H.264"],"media_audio":["MP3","AAC","AAC+","WMA"],"media_other":["Geo-tagging"],"features":["Unlimited entries","Caller groups","Multiple numbers per contact","Search by both first and last name","Picture ID","Ring ID","Calendar","Alarm","Calculator","Computer sync","OTA sync","Music ringtones (MP3)","Polyphonic ringtones (64 voices)","Vibration","Flight mode","Silent mode","Speakerphone","Accelerometer","Compass","Voice recording","SMS","MMS","Email","Push Email","IM","Stereo FM radio with RDS","SNS integration","Google Search","Maps","Gmail","YouTube","Google Talk","Picasa integration","Organizer","Document viewer","Voice memo","Voice dialing","Predictive text input","Games"],"connectors":["USB 2.0","microUSB","3.5mm Headphone"],"general_language":""}'		
@@ -64,13 +68,13 @@ class HandsetControllerTest < ActionController::TestCase
 
 		@map = Hash['h1'=>@h1, 'h2'=>@h2, 'h3'=>@h3, 'h4'=>@h4, 'h5'=>@h5, 'h6'=>@h6, 'h7'=>@h7]
 
-		@vendors = hd_remote(Configuration.get('vendors') + ".json", "")
-		@vendor = JSON.parse(deviceVendors())		
-		@model = JSON.parse(deviceModels('Sagem'))
-		@deviceView = JSON.parse(deviceView("Nokia","N95"))
-		@devicewWhatHas = JSON.parse(deviceWhatHas('network', 'CDMA'))
-		@fetchTrees = JSON.parse(siteFetchTrees())
-		@fetchSpecs = JSON.parse(siteFetchSpecs)		
+		#@vendors = hd_remote(Configuration.get('vendors') + ".json", "")
+		#@vendor = JSON.parse(deviceVendors())
+		#@model = JSON.parse(deviceModels('Sagem'))
+		#@deviceView = JSON.parse(deviceView("Nokia","N95"))
+		#@devicewWhatHas = JSON.parse(deviceWhatHas('network', 'CDMA'))
+		#@fetchTrees = JSON.parse(siteFetchTrees())
+		#@fetchSpecs = JSON.parse(siteFetchSpecs())
 
 		Rails::logger.debug
 	end
@@ -83,209 +87,824 @@ class HandsetControllerTest < ActionController::TestCase
 		@deviceView = nil
 		@devicewWhatHas = nil
 		@fetchTrees = nil
-		@fetchSpecs = nil		
+		@fetchSpecs = nil
 	end
 
-	# test username
-	def test_usernameRequired()
-		assert_equal("", Configuration.get('username'))
+	def setup_cloudConfig()
+		Configuration.set("username", "")
+		Configuration.set("password", "")
+		Configuration.set("site_id", "")
+		Configuration.set("server_detect", "1")
 	end
 
-	# test secret
-	def test_secretRequired()
-		assert_equal("", Configuration.get('password'))
+	def setup_ultimateConfig()
+		Configuration.set("username", "")
+		Configuration.set("password", "")
+		Configuration.set("site_id", "")
+		Configuration.set("server_detect", 0)
+		if (@@fetched != 1)
+			test_fetchArchive()
+			@@fetched = 1
+		end
 	end
 
-	# Test for default config readon from config file
-	def test_defaultFileConfig()
-		assert_not_nil(Configuration.get('username'))
-		assert_not_nil(Configuration.get('password'))
-		assert_not_nil(Configuration.get('site_id'))
-		assert_not_nil(Configuration.get('apiserver'))
+	def setup_ultimateCommunityConfig()
+		Configuration.set("username", "")
+		Configuration.set("password", "")
+		Configuration.set("site_id", "")
+		Configuration.set("server_detect", 0)
+		if (@@fetched != 2)
+			test_ultimate_community_fetchArchive()
+			@@fetched = 2
+		end
 	end
 
-	# Test for default http headers read when a new object is instantiated
-	def test_defaultSetup()
-		header = "Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 NokiaN95-3/20.2.011 Profile/MIDP-2.0 Configuration/CLDC-1.1 ) AppleWebKit/413"
-		profile = "http://nds1.nds.nokia.com/uaprof/NN95-1r100.xml"
-		ipaddress = "127.0.0.1"
-		data = Hash['user-agent'=>header, 'x-wap-profile'=>profile, 'ipaddress'=>ipaddress]
+	def test_cloudConfigExists()
+		assert_equal(true, true)
 	end
 
-	def test_manualSetup()
-		header = "Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 NokiaN95-3/20.2.011 Profile/MIDP-2.0 Configuration/CLDC-1.1 ) AppleWebKit/413"
-		profile = "http://nds1.nds.nokia.com/uaprof/NN95-1r100.xml"
-		d = detect({
-	      "Host"=>"localhost",
-	      "Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-	      "Accept-Language"=>"en-us,en;q=0.5",
-	      "Accept-Encoding"=>"gzip, deflate",
-	      "Connection"=>"keep-alive",
-	      "Cache-Control"=>"max-age=0",
-	      "user-agent" => header,
-	      "x-wap-profile"=>profile
-	   	},server_detect = 1)
-		_data = JSON.parse(d.to_s)
-		assert_not_nil(_data)
-		assert_equal(header d["user-agent"])
-		assert_equal(profile, d["x-wap-profile"])		
+	def test_deviceVendors()
+		setup_cloudConfig()
+		reply = JSON.parse(deviceVendors())
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_send([reply['vendor'], :member?, 'Nokia'])
+		assert_send([reply['vendor'], :member?, 'Samsung'])
 	end
 
-	def test_invalidCredentials()
-		Configuration.get('jones')
-		Configuration.get('jipple')
-		Configuration.get('57')		
-		vendors = deviceVendors()
-		assert_not_nil(vendors)
+	def test_deviceModels()
+		setup_cloudConfig()
+		reply = JSON.parse(deviceModels('Nokia'))
+		assert_not_nil(reply)
+		assert(reply['model'].count > 700)
+		assert_equal(0, reply['status'])
+		assert_equal('OK', reply['message'])
 	end
 
-	def deviceVendors(local, proxy)
-		_vendors = ["Apple", "Sony", "Samsung", "Nokia", "LG", "HTC", "Karbonn"]
-		Configuration.get('use_proxy')
-
-	end
-	
-	def test_deviceVendorsPass()
-		_vendor = @vendor	
-		_arrayVendors = ["Cutepad", "Sunstech", "ZeusPAD", "Motorola", "BenQ"]	
-		_arrayVendors.each{ |v| assert(_vendor['vendor'].include?(v), "Device Vendor #{v} not found.") }		
+	def test_deviceView()
+		setup_cloudConfig()
+		reply = JSON.parse(deviceView('Nokia', 'N95'))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal(@nokiaN95.downcase, JSON.generate(reply['device']).downcase)
 	end
 
-	def test_deviceVendorsFail()
-		_vendor = @vendor	
-		_arrayVendors = ["FlyingPad", "Arcade", "Cyborgii", "Symbianize", "BingQ", "DroidXV"]	
-		_arrayVendors.each{ |v| assert(_vendor['vendor'].exclude?(v), "Device Vendor #{v} found.") }
+	def test_deviceDeviceWhatHas()
+		setup_cloudConfig()
+		reply = JSON.parse(deviceWhatHas('design_dimensions', '101 x 44 x 16'))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		jsonString = JSON.generate(reply['devices'])
+
+		assert_not_nil(/Asus/.match(jsonString))
+		assert_not_nil(/V80/.match(jsonString))
+		assert_not_nil(/Spice/.match(jsonString))
+		assert_not_nil(/S900/.match(jsonString))
+		assert_not_nil(/Voxtel/.match(jsonString))
+		assert_not_nil(/RX800/.match(jsonString))
 	end
 
-	def test_deviceVendorNokia()				
-		_vendor = @vendor		
-		assert(_vendor['vendor'].include?('Nokia'), "Device Vendor Nokia not found.")
+	def test_deviceDetectHTTPDesktop()
+		setup_cloudConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Computer', reply['hd_specs']['general_type'])
 	end
 
-	def test_deviceVendorCyborg()		
-		_vendor = @vendor
-		assert(_vendor['vendor'].exclude?('Cyborg'), "Device Vendor Cyborg found.")
-	end
-	
-	def test_deviceModelSagemPass()
-		_model = @model		
-		["Vodafone 527", "PUMA Phone M1", "DoCoMo myV-75", "myX-5-2T"].each { |m| assert(_model['model'].include?(m), "Device Model #{m} not found.") }				
+	def test_deviceDetectHTTPDesktopJunk()
+		setup_cloudConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'aksjakdjkjdaiwdidjkjdkawjdijwidawjdiajwdkawdjiwjdiawjdwidjwakdjajdkad' + Time.new().to_s
+
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		assert_equal(301, reply['status'])
+		assert_equal('Not Found', reply['message'])
 	end
 
-	def test_deviceModelSagemFail()
-		_model = @model		
-		["myCloudPhone", "PANDA Phone", "Volatile-X201", "TitanX1", "iPhone 5S"].each { |m| assert(_model['model'].exclude?(m), "Device Model #{m} found.") }		
+	def test_deviceDetectHTTPWii()
+		setup_cloudConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Opera/9.30 (Nintendo Wii; U; ; 2047-7; es-Es)'
+
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Console', reply['hd_specs']['general_type'])
 	end
 
-	def test_deviceModelSagemMyMobileTV()
-		_model = @model
-		assert(_model['model'].include?('myMobileTV'), "Device Model Sagem myMobileTV not found.")
+	def test_deviceDetectHTTP()
+		setup_cloudConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert_equal('iPhone', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.3', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
 	end
 
-	def test_deviceModelSagemMySatelliteTV()
-		_model = @model
-		assert(_model['model'].include?('mySatelliteTV'), "Device Model Sagem mySatelliteTV not found.")
+	def test_deviceDetectHTTPOtherHeader()
+		setup_cloudConfig()
+		headers = Hash.new
+		headers['user-agent'] = 'blahblahblah'
+		headers['x-fish-header'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.3', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
 	end
 
-	def test_deviceViewNokiaN95()
-		_deviceView = @deviceView
-		assert_equal("Symbian", _deviceView["device"]["general_platform"])
-		assert_equal("N95", _deviceView["device"]["general_model"])
-		assert_equal("Nokia", _deviceView["device"]["general_vendor"])
+	def test_deviceDetectHTTPHardwareInfo()
+		setup_cloudConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		headers['x-local-hardwareinfo'] = '320:480:100:100'
+
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 3GS', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.2.1', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
 	end
 
-	def test_deviceViewNokia8080Fail()
-		_deviceView = JSON.parse(deviceView("Nokia","8080"))		
-		assert_equal("301", _deviceView["status"].to_s)		
+	def test_deviceDetectHTTPHardwareInfoB()
+		setup_cloudConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		headers['x-local-hardwareinfo'] = '320:480:100:72'
+
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 3G', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.2.1', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
 	end
 
-	def test_deviceWhatHas()
-		_devicewWhatHas = @devicewWhatHas
-		assert_not_nil(_devicewWhatHas, "Device is not empty")		
-		assert_equal("Samsung", _devicewWhatHas["devices"][0]["general_vendor"].to_s)		
-		assert_equal("LG", _devicewWhatHas["devices"][1]["general_vendor"])		
-	end
-	
-	def test_siteDetect()
-		d = detect({
-	      "Host"=>"localhost",
-	      "Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-	      "Accept-Language"=>"en-us,en;q=0.5",
-	      "Accept-Encoding"=>"gzip, deflate",
-	      "Connection"=>"keep-alive",
-	      "Cache-Control"=>"max-age=0",
-	      "user-agent" => "Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)",
-	      "x-wap-profile"=>"http://wap.sonyericsson.com/UAprof/LT15iR301.xml"
-	   	},server_detect = 1)
-		_data = JSON.parse(d.to_s)
-		assert_not_nil(_data)
-		assert_equal("SonyEricsson", _data["hd_specs"]["general_vendor"])
-		assert_equal("LT15I", _data["hd_specs"]["general_model"])
-		assert_equal("Android", _data["hd_specs"]["general_platform"])
-		assert_equal("2.3.1", _data["hd_specs"]["general_platform_version"])
+	def test_deviceDetectHTTPHardwareInfoC()
+		setup_cloudConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 2_0 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		headers['x-local-hardwareinfo'] = '320:480:200:1200'
+
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 3G', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('2.0', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
 	end
 
-	def test_localDetect()
-		d = detect({
-	      "Host"=>"localhost",
-	      "Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-	      "Accept-Language"=>"en-us,en;q=0.5",
-	      "Accept-Encoding"=>"gzip, deflate",
-	      "Connection"=>"keep-alive",
-	      "Cache-Control"=>"max-age=0",
-	      'user-agent' => 'Dalvik/1.4.0 (Linux; U; Android 2.3.1; TM-7022 Build/GINGERBREAD)',
-	      "x-wap-profile"=>'http://wap.sonyericsson.com/UAprof/LT15iR301.xml'
-	    },server_detect = 0)	   
-	    _data = JSON.parse(d.to_s)	    
-	    assert_nil(_data)	    
+	def test_deviceDetectHTTPFBiOS()
+		setup_cloudConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D201 [FBAN/FBIOS;FBAV/9.0.0.25.31;FBBV/2102024;FBDV/iPhone6,2;FBMD/iPhone;FBSN/iPhone OS;FBSV/7.1.1;FBSS/2; FBCR/vodafoneIE;FBID/phone;FBLC/en_US;FBOP/5]'
+		headers['Accept-Language'] = 'da, en-gb;q=0.8, en;q=0.7'
+
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 5S', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('7.1.1', reply['hd_specs']['general_platform_version'])
+		assert_equal('da', reply['hd_specs']['general_language'])
+		assert_equal('Danish', reply['hd_specs']['general_language_full'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert_equal('Facebook', reply['hd_specs']['general_app'])
+		assert_equal('9.0', reply['hd_specs']['general_app_version'])
+		assert_equal('', reply['hd_specs']['general_browser'])
+		assert_equal('', reply['hd_specs']['general_browser_version'])
+
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
 	end
 
-	def test_siteFetchTrees()
-		_data = @fetchTrees		
-		assert_not_nil(_data)		
+	def test_deviceDetectBIAndroid()
+		setup_cloudConfig()
+		buildInfo = Hash.new
+		buildInfo['ro.build.PDA'] = 'I9500XXUFNE7'
+		buildInfo['ro.build.changelist'] = '699287'
+		buildInfo['ro.build.characteristics'] = 'phone'
+		buildInfo['ro.build.date.utc'] = '1401287026'
+		buildInfo['ro.build.date'] = 'Wed May 28 23:23:46 KST 2014'
+		buildInfo['ro.build.description'] = 'ja3gxx-user 4.4.2 KOT49H I9500XXUFNE7 release-keys'
+		buildInfo['ro.build.display.id'] = 'KOT49H.I9500XXUFNE7'
+		buildInfo['ro.build.fingerprint'] = 'samsung/ja3gxx/ja3g:4.4.2/KOT49H/I9500XXUFNE7:user/release-keys'
+		buildInfo['ro.build.hidden_ver'] = 'I9500XXUFNE7'
+		buildInfo['ro.build.host'] = 'SWDD5723'
+		buildInfo['ro.build.id'] = 'KOT49H'
+		buildInfo['ro.build.product'] = 'ja3g'
+		buildInfo['ro.build.tags'] = 'release-keys'
+		buildInfo['ro.build.type'] = 'user'
+		buildInfo['ro.build.user'] = 'dpi'
+		buildInfo['ro.build.version.codename'] = 'REL'
+		buildInfo['ro.build.version.incremental'] = 'I9500XXUFNE7'
+		buildInfo['ro.build.version.release'] = '4.4.2'
+		buildInfo['ro.build.version.sdk'] = '19'
+		buildInfo['ro.product.board'] = 'universal5410'
+		buildInfo['ro.product.brand'] = 'samsung'
+		buildInfo['ro.product.cpu.abi2'] = 'armeabi'
+		buildInfo['ro.product.cpu.abi'] = 'armeabi-v7a'
+		buildInfo['ro.product.device'] = 'ja3g'
+		buildInfo['ro.product.locale.language'] = 'en'
+		buildInfo['ro.product.locale.region'] = 'GB'
+		buildInfo['ro.product.manufacturer'] = 'samsung'
+		buildInfo['ro.product.model'] = 'GT-I9500'
+		buildInfo['ro.product.name'] = 'ja3gxx'
+		buildInfo['ro.product_ship'] = 'true'
+
+		reply = JSON.parse(detect(buildInfo))
+		check_reply_isok(reply)
+		assert_equal('Samsung', reply['hd_specs']['general_vendor'])
+		assert_equal('GT-I9500', reply['hd_specs']['general_model'])
+		assert_equal('Android', reply['hd_specs']['general_platform'])
+		assert_equal('Samsung Galaxy S4', reply['hd_specs']['general_aliases'][0])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
 	end
 
-	def test_siteFetchSpecs()
-		_data = @fetchSpecs		
-		assert_not_nil(_data)		
+	def test_deviceDetectBIiOS()
+		setup_cloudConfig()
+		buildInfo = Hash.new
+		buildInfo['utsname.machine'] = 'iphone4,1',
+		buildInfo['utsname.brand'] = 'Apple'
+		reply = JSON.parse(detect(buildInfo))
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 4S', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('5.0', reply['hd_specs']['general_platform_version'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
 	end
 
-	def test_UltimateFetchTrees()
-		reply = @fetchTrees
-		assert_equal(true, reply)
-		assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/hd3trees.json'))
-		filenames = ["user-agent0.json", "user-agent1.json", "user-angetplatform.json", "user-agentbrowser.json", "profile0.json"]
-		filename.each { |f| 
-			assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/', f))
-		}
+	def test_deviceDetectWindowsPhone()
+		setup_cloudConfig()
+		buildInfo = Hash.new
+		buildInfo['devicemanufacturer'] = 'nokia'
+		buildInfo['devicename'] = 'RM-875'
+		reply = JSON.parse(detect(buildInfo))
+		check_reply_isok(reply)
+		assert_equal('Nokia', reply['hd_specs']['general_vendor'])
+		assert_equal('Lumia 1020', reply['hd_specs']['general_model'])
+		assert_equal('Windows Phone', reply['hd_specs']['general_platform'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert_equal(332, reply['hd_specs']['display_ppi'])
 	end
 
-	def test_UltimateFetchSpecs
-		reply = @fetchSpecs
-		assert_equal(true, reply)
-		assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/hd3specs.json'))
-		filenames = ["Device_10.json", "Extra_546.json", "Device_46142.json", "Extra_9.json", "Extra_102.json", "user-agent0.json", "user-agent1.json", "user-agentplatform.json", "user-agentbrowser.json", "profile0.json"]
-		filename.each { |f| 
-			assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/', f))
-		}
+	def test_fetchArchive()
+		result = ultimateFetcharchive()
+		assert(result)
 	end
 
-	def test_UltimateFetchSpecsFail
-		Configuration.get('username')
-		Configuration.get('password')
-		Configuration.get('site_id')
-		Configuration.get('apiserver')
-		reply = @fetchTrees
-		assert_equal(false, reply)
+	def test_ultimate_deviceVendors()
+		setup_ultimateConfig()
+		reply = JSON.parse(deviceVendors())
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_send([reply['vendor'], :member?, 'Nokia'])
+		assert_send([reply['vendor'], :member?, 'Samsung'])
 	end
 
-	def test_UltimateFetchArchive		
-		filenames = ["Device_10.json", "Extra_546.json", "Device_46142.json", "Extra_9.json", "Extra_102.json", "user-agent0.json", "user-agent1.json", "user-agentplatform.json", "user-agentbrowser.json", "profile0.json"]
-		filename.each { |f| 
-			assert_equal(true, File.exists?(File.join(Rails.root.to_s + '/tmp/files/', f))
-		}
-		content = data = File.read(Rails.root.to_s + '/tmp/files/device_10.json')
-		assert_equal(@Device_10, content)
+	def test_ultimate_deviceModels()
+		setup_ultimateConfig()
+		reply = JSON.parse(deviceModels('Nokia'))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert(reply['model'].count > 700)
 	end
 
+	def test_ultimate_deviceView()
+		setup_ultimateConfig()
+		reply = JSON.parse(deviceView('Nokia', 'N9'))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal(@nokiaN9.downcase, JSON.generate(reply['device']).downcase)
+	end
+
+	def test_ultimate_deviceDeviceWhatHas()
+		setup_ultimateConfig()
+		reply = JSON.parse(deviceWhatHas('design_dimensions', '101 x 44 x 16'))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		jsonString = JSON.generate(reply['devices'])
+		assert_not_nil(/Asus/.match(jsonString))
+		assert_not_nil(/V80/.match(jsonString))
+		assert_not_nil(/Spice/.match(jsonString))
+		assert_not_nil(/S900/.match(jsonString))
+		assert_not_nil(/Voxtel/.match(jsonString))
+		assert_not_nil(/RX800/.match(jsonString))
+	end
+
+	def test_ultimate_deviceDetectHTTPDesktop()
+		setup_ultimateConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Computer', reply['hd_specs']['general_type'])
+	end
+
+	def test_ultimate_deviceDetectHTTPDesktopJunk()
+		setup_ultimateConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'aksjakdjkjdaiwdidjkjdkawjdijwidawjdiajwdkawdjiwjdiawjdwidjwakdjajdkad'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		assert_equal(301, reply['status'])
+		assert_equal('Not Found', reply['message'])
+	end
+
+	def test_ultimate_deviceDetectHTTPWii()
+		setup_ultimateConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Opera/9.30 (Nintendo Wii; U; ; 2047-7; es-Es)'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Console', reply['hd_specs']['general_type'])
+	end
+
+	def test_ultimate_deviceDetectHTTP()
+		setup_ultimateConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.3', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_deviceDetectHTTPOtherHeader()
+		setup_ultimateConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'blahblahblah'
+		headers['x-fish-header'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.3', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_deviceDetectHTTPHardwareInfo()
+		setup_ultimateConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		headers['x-local-hardwareinfo'] = '320:480:100:100'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 3GS', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.2.1', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_deviceDetectHTTPHardwareInfoB()
+		setup_ultimateConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		headers['x-local-hardwareinfo'] = '320:480:100:72'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 3G', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.2.1', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_deviceDetectHTTPHardwareInfoC()
+		setup_ultimateConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 2_0 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		headers['x-local-hardwareinfo'] = '320:480:200:1200'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 3G', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('2.0', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_deviceDetectHTTPFBiOS()
+		setup_ultimateConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D201 [FBAN/FBIOS;FBAV/9.0.0.25.31;FBBV/2102024;FBDV/iPhone6,2;FBMD/iPhone;FBSN/iPhone OS;FBSV/7.1.1;FBSS/2; FBCR/vodafoneIE;FBID/phone;FBLC/en_US;FBOP/5]'
+		headers['Accept-Language'] = 'da, en-gb;q=0.8, en;q=0.7'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 5S', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('7.1.1', reply['hd_specs']['general_platform_version'])
+		assert_equal('da', reply['hd_specs']['general_language'])
+		assert_equal('Danish', reply['hd_specs']['general_language_full'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert_equal('Facebook', reply['hd_specs']['general_app'])
+		assert_equal('9.0', reply['hd_specs']['general_app_version'])
+		assert_equal('', reply['hd_specs']['general_browser'])
+		assert_equal('', reply['hd_specs']['general_browser_version'])
+
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_deviceDetectBIAndroid()
+		setup_ultimateConfig()
+		buildInfo = Hash.new
+		buildInfo['ro.build.PDA'] = 'I9500XXUFNE7'
+		buildInfo['ro.build.changelist'] = '699287'
+		buildInfo['ro.build.characteristics'] = 'phone'
+		buildInfo['ro.build.date.utc'] = '1401287026'
+		buildInfo['ro.build.date'] = 'Wed May 28 23:23:46 KST 2014'
+		buildInfo['ro.build.description'] = 'ja3gxx-user 4.4.2 KOT49H I9500XXUFNE7 release-keys'
+		buildInfo['ro.build.display.id'] = 'KOT49H.I9500XXUFNE7'
+		buildInfo['ro.build.fingerprint'] = 'samsung/ja3gxx/ja3g:4.4.2/KOT49H/I9500XXUFNE7:user/release-keys'
+		buildInfo['ro.build.hidden_ver'] = 'I9500XXUFNE7'
+		buildInfo['ro.build.host'] = 'SWDD5723'
+		buildInfo['ro.build.id'] = 'KOT49H'
+		buildInfo['ro.build.product'] = 'ja3g'
+		buildInfo['ro.build.tags'] = 'release-keys'
+		buildInfo['ro.build.type'] = 'user'
+		buildInfo['ro.build.user'] = 'dpi'
+		buildInfo['ro.build.version.codename'] = 'REL'
+		buildInfo['ro.build.version.incremental'] = 'I9500XXUFNE7'
+		buildInfo['ro.build.version.release'] = '4.4.2'
+		buildInfo['ro.build.version.sdk'] = '19'
+		buildInfo['ro.product.board'] = 'universal5410'
+		buildInfo['ro.product.brand'] = 'samsung'
+		buildInfo['ro.product.cpu.abi2'] = 'armeabi'
+		buildInfo['ro.product.cpu.abi'] = 'armeabi-v7a'
+		buildInfo['ro.product.device'] = 'ja3g'
+		buildInfo['ro.product.locale.language'] = 'en'
+		buildInfo['ro.product.locale.region'] = 'GB'
+		buildInfo['ro.product.manufacturer'] = 'samsung'
+		buildInfo['ro.product.model'] = 'GT-I9500'
+		buildInfo['ro.product.name'] = 'ja3gxx'
+		buildInfo['ro.product_ship'] = 'true'
+		reply = JSON.parse(detect(buildInfo))
+		check_reply_isok(reply)
+		assert_equal('Samsung', reply['hd_specs']['general_vendor'])
+		assert_equal('GT-I9500', reply['hd_specs']['general_model'])
+		assert_equal('Android', reply['hd_specs']['general_platform'])
+		assert_equal('Samsung Galaxy S4', reply['hd_specs']['general_aliases'][0])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+	end
+
+	def test_ultimate_deviceDetectBIiOS()
+		setup_ultimateConfig()
+		buildInfo = Hash.new
+		buildInfo['utsname.machine'] = 'iphone4,1'
+		buildInfo['utsname.brand'] = 'Apple'
+		reply = JSON.parse(detect(buildInfo))
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 4S', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('5.0', reply['hd_specs']['general_platform_version'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+	end
+
+	def test_ultimate_deviceDetectWindowsPhone()
+		setup_ultimateConfig()
+		buildInfo = Hash.new
+		buildInfo['devicemanufacturer'] = 'nokia'
+		buildInfo['devicename'] = 'RM-875'
+		reply = JSON.parse(detect(buildInfo))
+		check_reply_isok(reply)
+		assert_equal('Nokia', reply['hd_specs']['general_vendor'])
+		assert_equal('Lumia 1020', reply['hd_specs']['general_model'])
+		assert_equal('Windows Phone', reply['hd_specs']['general_platform'])
+		assert_equal('Mobile', reply['hd_specs']['general_type'])
+		assert_equal(332, reply['hd_specs']['display_ppi'])
+	end
+
+	def test_ultimate_community_fetchArchive()
+		result = communityFetcharchive()
+		assert(result)
+	end
+
+	def test_ultimate_community_deviceDetectHTTPDesktop()
+		setup_ultimateCommunityConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('', reply['hd_specs']['general_type'])
+	end
+
+	def test_ultimate_community_deviceDetectHTTPDesktopJunk()
+		setup_ultimateCommunityConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'aksjakdjkjdaiwdidjkjdkawjdijwidawjdiajwdkawdjiwjdiawjdwidjwakdjajdkad'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		assert_equal(301, reply['status'])
+		assert_equal('Not Found', reply['message'])
+	end
+
+	def test_ultimate_community_deviceDetectHTTPWii()
+		setup_ultimateCommunityConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Opera/9.30 (Nintendo Wii; U; ; 2047-7; es-Es)'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('', reply['hd_specs']['general_type'])
+	end
+
+	def test_ultimate_community_deviceDetectHTTP()
+		setup_ultimateCommunityConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('', reply['hd_specs']['general_type'])
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.3', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_community_deviceDetectHTTPOtherHeader()
+		setup_ultimateCommunityConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'blahblahblah'
+		headers['x-fish-header'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('', reply['hd_specs']['general_type'])
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.3', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_community_deviceDetectHTTPHardwareInfo()
+		setup_ultimateCommunityConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		headers['x-local-hardwareinfo'] = '320:480:100:100'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 3GS', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.2.1', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_community_deviceDetectHTTPHardwareInfoB()
+		setup_ultimateCommunityConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		headers['x-local-hardwareinfo'] = '320:480:100:72'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 3G', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('4.2.1', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_community_deviceDetectHTTPHardwareInfoC()
+		setup_ultimateCommunityConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 2_0 like Mac OS X; en-gb) AppleWebKit/533.17.9 (KHTML, like Gecko)'
+		headers['x-local-hardwareinfo'] = '320:480:200:1200'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 3G', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('2.0', reply['hd_specs']['general_platform_version'])
+		assert_equal('en-gb', reply['hd_specs']['general_language'])
+		assert_equal('', reply['hd_specs']['general_type'])
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_community_deviceDetectHTTPFBiOS()
+		setup_ultimateCommunityConfig()
+		headers = Hash.new
+		headers['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D201 [FBAN/FBIOS;FBAV/9.0.0.25.31;FBBV/2102024;FBDV/iPhone6,2;FBMD/iPhone;FBSN/iPhone OS;FBSV/7.1.1;FBSS/2; FBCR/vodafoneIE;FBID/phone;FBLC/en_US;FBOP/5]'
+		headers['Accept-Language'] = 'da, en-gb;q=0.8, en;q=0.7'
+		reply = JSON.parse(detect(headers))
+		assert_not_nil(reply)
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 5S', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('7.1.1', reply['hd_specs']['general_platform_version'])
+		assert_equal('da', reply['hd_specs']['general_language'])
+		assert_equal('Danish', reply['hd_specs']['general_language_full'])
+		assert_equal('', reply['hd_specs']['general_type'])
+		assert_equal('Facebook', reply['hd_specs']['general_app'])
+		assert_equal('9.0', reply['hd_specs']['general_app_version'])
+		assert_equal('', reply['hd_specs']['general_browser'])
+		assert_equal('', reply['hd_specs']['general_browser_version'])
+
+		assert(reply['hd_specs'].has_key?('display_pixel_ratio'))
+		assert(reply['hd_specs'].has_key?('display_ppi'))
+		assert(reply['hd_specs'].has_key?('benchmark_min'))
+		assert(reply['hd_specs'].has_key?('benchmark_max'))
+	end
+
+	def test_ultimate_community_deviceDetectBIAndroid()
+		setup_ultimateCommunityConfig()
+		buildInfo = Hash.new
+		buildInfo['ro.build.PDA'] = 'I9500XXUFNE7'
+		buildInfo['ro.build.changelist'] = '699287'
+		buildInfo['ro.build.characteristics'] = 'phone'
+		buildInfo['ro.build.date.utc'] = '1401287026'
+		buildInfo['ro.build.date'] = 'Wed May 28 23:23:46 KST 2014'
+		buildInfo['ro.build.description'] = 'ja3gxx-user 4.4.2 KOT49H I9500XXUFNE7 release-keys'
+		buildInfo['ro.build.display.id'] = 'KOT49H.I9500XXUFNE7'
+		buildInfo['ro.build.fingerprint'] = 'samsung/ja3gxx/ja3g:4.4.2/KOT49H/I9500XXUFNE7:user/release-keys'
+		buildInfo['ro.build.hidden_ver'] = 'I9500XXUFNE7'
+		buildInfo['ro.build.host'] = 'SWDD5723'
+		buildInfo['ro.build.id'] = 'KOT49H'
+		buildInfo['ro.build.product'] = 'ja3g'
+		buildInfo['ro.build.tags'] = 'release-keys'
+		buildInfo['ro.build.type'] = 'user'
+		buildInfo['ro.build.user'] = 'dpi'
+		buildInfo['ro.build.version.codename'] = 'REL'
+		buildInfo['ro.build.version.incremental'] = 'I9500XXUFNE7'
+		buildInfo['ro.build.version.release'] = '4.4.2'
+		buildInfo['ro.build.version.sdk'] = '19'
+		buildInfo['ro.product.board'] = 'universal5410'
+		buildInfo['ro.product.brand'] = 'samsung'
+		buildInfo['ro.product.cpu.abi2'] = 'armeabi'
+		buildInfo['ro.product.cpu.abi'] = 'armeabi-v7a'
+		buildInfo['ro.product.device'] = 'ja3g'
+		buildInfo['ro.product.locale.language'] = 'en'
+		buildInfo['ro.product.locale.region'] = 'GB'
+		buildInfo['ro.product.manufacturer'] = 'samsung'
+		buildInfo['ro.product.model'] = 'GT-I9500'
+		buildInfo['ro.product.name'] = 'ja3gxx'
+		buildInfo['ro.product_ship'] = 'true'
+		reply = JSON.parse(detect(buildInfo))
+		check_reply_isok(reply)
+		assert_equal('Samsung', reply['hd_specs']['general_vendor'])
+		assert_equal('GT-I9500', reply['hd_specs']['general_model'])
+		assert_equal('Android', reply['hd_specs']['general_platform'])
+		assert(reply['hd_specs']['general_aliases'][0].empty?)
+		assert_equal('', reply['hd_specs']['general_type'])
+	end
+
+	def test_ultimate_community_deviceDetectBIiOS()
+		setup_ultimateCommunityConfig()
+		buildInfo = Hash.new
+		buildInfo['utsname.machine'] = 'iphone4,1'
+		buildInfo['utsname.brand'] = 'Apple'
+		reply = JSON.parse(detect(buildInfo))
+		check_reply_isok(reply)
+		assert_equal('Apple', reply['hd_specs']['general_vendor'])
+		assert_equal('iPhone 4S', reply['hd_specs']['general_model'])
+		assert_equal('iOS', reply['hd_specs']['general_platform'])
+		assert_equal('5.0', reply['hd_specs']['general_platform_version'])
+		assert_equal('', reply['hd_specs']['general_type'])
+	end
+
+	def test_ultimate_community_deviceDetectWindowsPhone()
+		setup_ultimateCommunityConfig()
+		buildInfo = Hash.new
+		buildInfo['devicemanufacturer'] = 'nokia'
+		buildInfo['devicename'] = 'RM-875'
+		reply = JSON.parse(detect(buildInfo))
+		check_reply_isok(reply)
+		assert_equal('Nokia', reply['hd_specs']['general_vendor'])
+		assert_equal('Lumia 1020', reply['hd_specs']['general_model'])
+		assert_equal('Windows Phone', reply['hd_specs']['general_platform'])
+		assert_equal('', reply['hd_specs']['general_type'])
+		assert_equal(0, reply['hd_specs']['display_ppi'])
+	end
+
+	def check_reply_isok(reply)
+		assert_equal(0, reply['status'])
+		assert_equal('OK', reply['message'])
+	end
 end
